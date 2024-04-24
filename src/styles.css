@@ -1,1 +1,183 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+:root {
+  /*========== Colors ==========*/
+  --header-color: black;
+  --header-text-color: white;
+
+  --body-color: #eeeeee;
+  --items-color: black;
+
+  --primary-color: #bc96e6;
+  --secondary-color: #ebd1f2;
+  --prices-color: #a75be2;
+  --text-color: black;
+  --title-color: #55286f;
+  --items-background-color: #d9d9d9;
+
+  /*========== Font and typography ==========*/
+  --body-font: "Poppins", sans-serif;
+
+  /*========== Font weight ==========*/
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --big-font-size: 3.5rem;
+  --h1-font-size: 2.25rem;
+  --h2-font-size: 1.5rem;
+  --h3-font-size: 1.25rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.875rem;
+  --smaller-font-size: 0.813rem;
+  --tiny-font-size: 0.625rem;
+
+  /*========== Margenes Bottom ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --mb-0-25: 0.25rem;
+  --mb-0-5: 0.5rem;
+  --mb-0-75: 0.75rem;
+  --mb-1: 1rem;
+  --mb-1-5: 1.5rem;
+  --mb-2: 2rem;
+  --mb-2-5: 2.5rem;
+  --mb-3: 3rem;
+}
+
+/*=============== BASE ===============*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input {
+  font-family: inherit;
+  display: inline-block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 3px 0 10px 30px;
+}
+
+select {
+  font-family: inherit;
+  display: inline-block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 3px 0 10px 30px;
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*=============== Animation A ===============*/
+a {
+  background-image: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--secondary-color) 50%,
+    black 50%
+  );
+  background-size: 200% 100%;
+  background-position: -100%;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  background-clip: padding-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+a::before {
+  content: "";
+  background: var(--title-color);
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  background-position: 0;
+}
+
+a:hover::before {
+  width: 100%;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.grid {
+  display: grid;
+  grid-gap: 1.5rem;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  cursor: pointer;
+}
+.section {
+  padding: 6rem 0 2rem;
+}
+.submit-button {
+  background: var(--primary-color);
+  border-radius: 5px;
+  border: none;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px;
+  outline: none;
+  padding: 10px 15px;
+  transition: transform 0.4s;
+  width: 200px;
+}
+.submit-button:hover {
+  transform: scale(1.1);
+}
+.section__subtitle {
+  display: block;
+  font-size: var(--small-font-size);
+  margin-bottom: 4rem;
+}
+.section__title {
+  font-size: var(--h1-font-size);
+  color: var(--title-color);
+}
+
+.section__title,
+.section__subtitle {
+  text-align: center;
+}

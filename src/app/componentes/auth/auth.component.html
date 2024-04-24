@@ -1,0 +1,9 @@
+<div class='loginPage'>
+    <header class='header-auth'>
+        <navbar></navbar>
+    </header>
+
+    <login_component *ngIf="selectPage === 'login'" (switchToRegisterEvent)="setSelectPage('register')" ></login_component>
+    <register_component *ngIf="selectPage === 'register'" (switchToLoginEvent)="setSelectPage('login')" ></register_component>
+
+</div>
