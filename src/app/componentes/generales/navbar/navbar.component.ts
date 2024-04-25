@@ -11,7 +11,7 @@ import { Router, RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavBarComponent implements AfterViewInit {
   isFixed = false;

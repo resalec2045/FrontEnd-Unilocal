@@ -93,7 +93,7 @@
   justify-content: space-around;
 }
 .links a{
-  background-image: linear-gradient( to right, var(--secondary-color), var(--secondary-color) 50%, black 50% );
+  background-image: linear-gradient( to right, black, black 50%, black 50% );
   font-size: var(-small-font-size);
 }
 

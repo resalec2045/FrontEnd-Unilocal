@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { NavBarComponent } from '../generales/navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RecoveryComponent } from './recovery/recovery.component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
     NavBarComponent,
     LoginComponent,
     RegisterComponent,
+    RecoveryComponent,
     NgIf,
   ],
   templateUrl: './auth.component.html',

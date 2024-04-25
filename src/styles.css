@@ -97,7 +97,7 @@ a {
     to right,
     var(--secondary-color),
     var(--secondary-color) 50%,
-    black 50%
+    #fff 50%
   );
   background-size: 200% 100%;
   background-position: -100%;
@@ -181,3 +181,4 @@ a:hover::before {
 .section__subtitle {
   text-align: center;
 }
+
