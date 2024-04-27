@@ -6,5 +6,6 @@ import { AuthComponent } from './componentes/auth/auth.component';
 
 export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
+  { path: 'home', component: InicioComponent },
   { path: '**', pathMatch: "full", redirectTo: "" },
 ];

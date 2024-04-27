@@ -3,6 +3,7 @@ import {
   HostListener,
   ElementRef,
   AfterViewInit,
+  Input,
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
@@ -14,10 +15,11 @@ import { Router, RouterOutlet } from '@angular/router';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavBarComponent implements AfterViewInit {
-  isFixed = false;
-  // TODO: Volver dinamico
-  type = 'header-login';
   navbarOriginalPosition: number = 0;
+  isFixed = false;
+
+  // TODO: Volver dinamico
+  @Input() type: string = 'header-login';
 
   constructor(private el: ElementRef, private router: Router) {}
 
