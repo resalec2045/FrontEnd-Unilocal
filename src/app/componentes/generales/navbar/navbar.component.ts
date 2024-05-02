@@ -18,7 +18,6 @@ export class NavBarComponent implements AfterViewInit {
   navbarOriginalPosition: number = 0;
   isFixed = false;
 
-  // TODO: Volver dinamico
   @Input() type: string = 'header-login';
 
   constructor(private el: ElementRef, private router: Router) {}

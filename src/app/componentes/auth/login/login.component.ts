@@ -1,14 +1,23 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthComponent } from '../auth.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginDTO } from '../../../dto/LoginDTO';
+import { unilocalApi } from '../../../api/unilocalApi';
+import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'login_component',
   standalone: true,
-  imports: [RouterOutlet, AuthComponent, FormsModule, CommonModule],
+  imports: [
+    RouterOutlet,
+    AuthComponent,
+    FormsModule,
+    CommonModule,
+    HttpClientModule,
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['../auth.component.css'],
 })
@@ -19,7 +28,7 @@ export class LoginComponent {
   @Output() switchToRegisterEvent = new EventEmitter<void>();
   @Output() switchToRecoveryEvent = new EventEmitter<void>();
 
-  constructor() {
+  constructor(private unilocalApi: unilocalApi, private router: Router) {
     this.loginDTO = new LoginDTO();
   }
 
@@ -33,5 +42,19 @@ export class LoginComponent {
 
   loginSubmit() {
     console.log(this.loginDTO.email);
+    this.unilocalApi.post<any>('auth/login-cliente', this.loginDTO).subscribe(
+      (response) => {
+        this.unilocalApi.setAuthToken(response.respuesta.token);
+        this.router.navigate(['/home']);
+      },
+      (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error.respuesta,
+        });
+      }
+    );
+    // console.log(this.loginDTO.email);
   }
 }
