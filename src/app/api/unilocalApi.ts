@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class unilocalApi {
   // private apiUrl: string = 'https://qcx14905-8080.use2.devtunnels.ms/api';
-  private apiUrl: string = 'localhost:8080/api';
+  private apiUrl: string = 'http://localhost:8080/api';
   private authToken: string = '';
 
   constructor(private http: HttpClient) {}
@@ -38,4 +38,17 @@ export class unilocalApi {
       headers: this.getRequestHeaders(),
     });
   }
+
+  delete<T>(endpoint: string): Observable<T> {
+    return this.http.delete<T>(`${this.apiUrl}/${endpoint}`, {
+      headers: this.getRequestHeaders(),
+    });
+  }
+
+  put<T>(endpoint: string, data: any): Observable<T> {
+    return this.http.put<T>(`${this.apiUrl}/${endpoint}`, data, {
+      headers: this.getRequestHeaders(),
+    });
+  }
+
 }
