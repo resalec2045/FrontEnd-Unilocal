@@ -14,6 +14,6 @@ export const routes: Routes = [
   { path: 'publicacion/:codigo', component: PublicacionComponent },
   { path: "gestion-negocios", component: GestionNegociosComponent },
   { path: "crear-negocio", component: CrearNegocioComponent },
-  { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent }
+  { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent },
   { path: '**', pathMatch: "full", redirectTo: "auth" },
 ];
