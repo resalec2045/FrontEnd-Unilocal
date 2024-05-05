@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
-import { NegociosService } from '../../servicios/negocios.service';
+import { ItemNegocioDTO } from '../../../dto/ItemNegocioDTO';
+import { NegociosService } from '../../../servicios/negocios.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 

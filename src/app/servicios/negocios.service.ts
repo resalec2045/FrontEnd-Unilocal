@@ -27,15 +27,28 @@ export class NegociosService {
   public listar(): ItemNegocioDTO[] {
     return this.negocios;
   }
+
   public obtener(codigo: string): ItemNegocioDTO | undefined {
     return this.negocios.find(negocios => negocios.codigoNegocio == codigo);
   }
+
   public crear(negocioNuevo: RegistroNegocioDTO) {
     const codigo = (this.negocios.length + 1).toString();
     this.negocios.push( new ItemNegocioDTO(codigo, negocioNuevo.nombre,
     negocioNuevo.imagenes[0], negocioNuevo.tipoNegocio, negocioNuevo.ubicacion, 0, 'PENDIENTE') );
   }
+
   public eliminar(codigo: string) {
     this.negocios = this.negocios.filter(n => n.codigoNegocio !== codigo);
+  }
+
+  public buscar(terminoBusqueda: string): ItemNegocioDTO[] {
+    const negocios: ItemNegocioDTO[] = this.negocios; 
+    const terminoBusquedaMinusculas = terminoBusqueda.toLowerCase();
+    const nombresMinusculas = negocios.map(negocio => negocio.nombre.toLowerCase());
+    const negociosFiltrados = negocios.filter((negocio, index) => {
+      return nombresMinusculas[index].includes(terminoBusquedaMinusculas);
+    });
+    return negociosFiltrados;
   }
 }
