@@ -41,11 +41,10 @@ export class LoginComponent {
   }
 
   loginSubmit() {
-    console.log(this.loginDTO.email);
     this.unilocalApi.post<any>('auth/login-cliente', this.loginDTO).subscribe(
       (response) => {
         this.unilocalApi.setAuthToken(response.respuesta.token);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/inicio']);
       },
       (error) => {
         Swal.fire({
@@ -55,6 +54,5 @@ export class LoginComponent {
         });
       }
     );
-    // console.log(this.loginDTO.email);
   }
 }

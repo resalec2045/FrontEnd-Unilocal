@@ -1,0 +1,30 @@
+.card {
+  border-radius: 15px;
+}
+.card-body {
+  display: flex;
+  gap: 10px;
+  padding: var(--mb-2);
+}
+.card-img {
+  width: 50% !important;
+  margin-right: 10px;
+}
+.card-img img {
+  border-radius: 15px;
+}
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--title-color);
+}
+.card-title_corazon {
+  color: var(--title-color);
+  font-size: 2rem;
+}
+.card-text_button {
+  display: flex;
+  justify-content: end;
+}

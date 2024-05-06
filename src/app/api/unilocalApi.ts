@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../env/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class unilocalApi {
-  // private apiUrl: string = 'https://qcx14905-8080.use2.devtunnels.ms/api';
-  private apiUrl: string = 'http://localhost:8080/api';
+  private apiUrl: string = environment.apiUrl;
   private authToken: string = '';
 
   constructor(private http: HttpClient) {}
@@ -50,5 +50,4 @@ export class unilocalApi {
       headers: this.getRequestHeaders(),
     });
   }
-
 }

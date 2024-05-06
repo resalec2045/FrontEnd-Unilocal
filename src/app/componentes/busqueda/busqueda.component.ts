@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NegociosService } from '../../servicios/negocios.service';
-import { MapaService } from '../../servicios/mapa.service';
+import { NegociosService } from '../../services/negocios.service';
+import { MapaService } from '../../services/mapa.service';
 import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
 
 @Component({
@@ -9,16 +9,19 @@ import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
   standalone: true,
   imports: [],
   templateUrl: './busqueda.component.html',
-  styleUrl: './busqueda.component.css'
+  styleUrl: './busqueda.component.css',
 })
-
 export class BusquedaComponent implements OnInit {
   textoBusqueda: string;
   resultados: ItemNegocioDTO[];
-  constructor(private route: ActivatedRoute, private negociosService: NegociosService, private mapaService: MapaService) {
+  constructor(
+    private route: ActivatedRoute,
+    private negociosService: NegociosService,
+    private mapaService: MapaService
+  ) {
     this.resultados = [];
-    this.textoBusqueda = "";
-    this.route.params.subscribe(params => {
+    this.textoBusqueda = '';
+    this.route.params.subscribe((params) => {
       this.textoBusqueda = params['texto'];
       this.resultados = this.negociosService.buscar(this.textoBusqueda);
     });

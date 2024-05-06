@@ -1,1 +1,133 @@
-<p>{{negocio | json}}</p>
+<div class="app">
+  <main>
+    <navbar [type]="'header'"></navbar>
+    <section class="section" id="product">
+      <div class="product_container container grid">
+        <div class="product_information grid">
+          <div class="product_information-img flex-center">
+            <div class="information__img-box flex-center">
+              <div
+                id="carouselExampleAutoplaying"
+                class="carousel slide"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner">
+                  @for (imagen of EstablecimientoDTO?.imagenes; track $index) {
+                  <div class="carousel-item active">
+                    <img
+                      src="{{ imagen }}"
+                      class="d-block w-100"
+                      alt="{{ imagen + $index }}"
+                    />
+                  </div>
+                  }
+                </div>
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleAutoplaying"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleAutoplaying"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="product_information-description">
+            <div class="product_information-title">
+              <h1 class="product-name">{{ EstablecimientoDTO?.nombre }}</h1>
+              <div class="flex-center">
+                <i class="bx bxs-heart product_information-heart"></i>
+                <div class="product_information-disponibilidad flex-center">
+                  {{ estaAbierto() }}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <p>{{ EstablecimientoDTO!.descripcion }}</p>
+            <hr />
+            <p>Horarios: Lunes 3a9 p.m. Martes 3a9 p.m.</p>
+            @for (horarios of EstablecimientoDTO?.horarios; track $index) {
+            <p>
+              {{ horarios.dia }}: {{ horarios.horaApertura }} -
+              {{ horarios.horaCierre }}
+            </p>
+            }
+            <p>Categoría: {{ EstablecimientoDTO?.categoria }}</p>
+            @for ( telefonos of EstablecimientoDTO?.telefonos; track $index) {
+            <p>Teléfono {{ $index + 1 }}: {{ telefonos }}</p>
+            }
+            <div class="product_information-calificaciones">
+              <p>Calificaciones:</p>
+              <!-- TODO: For para las calificaciones (Revisar promedio de establecimiento) -->
+              <div class="product_information-stars">
+                <i class="bx bxs-star star-active"></i>
+                <i class="bx bxs-star star-active"></i>
+                <i class="bx bxs-star star-active"></i>
+                <i class="bx bxs-star star-active"></i>
+                <i class="bx bxs-star"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comentarios-section">
+          <div class="section__presentation">
+            <h2 className="section__title">Comentarios</h2>
+            <span className="section__subtitle"
+              >Comentarios realizados por la comunidad</span
+            >
+          </div>
+
+          @for (comentario of ComentariosDTO; track $index) {
+          <div class="comentario_information">
+            <img
+              src="../../../../assets/icons/icontao.jpg"
+              alt="..."
+              class="comentario_information-image"
+            />
+            <!-- TODO: IMPLEMENTAR PETICION PARA TRAER EL CLIENTE -->
+            <span class="comentario_information-name"
+              >Armando Esteban Quito</span
+            >
+            <div class="">
+              <i
+                *ngFor="let val of generarRango(+comentario.valoracion)"
+                class="bx bxs-star star-active"
+              ></i>
+            </div>
+          </div>
+          <span>{{ comentario?.resenia }}</span>
+
+          <div class="comentario_information-respuesta">
+            <div class="comentario_information">
+              <img
+                src="../../../../assets/icons/iconklee.jpg"
+                alt="..."
+                class="comentario_information-image"
+              />
+              <span>Elsa Pallo</span>
+            </div>
+            <span>{{ comentario?.respuesta }}</span>
+          </div>
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
