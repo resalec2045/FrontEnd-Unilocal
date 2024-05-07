@@ -19,4 +19,8 @@ export class CartaNegocioComponent {
       `detalle-negocio/${this.establecimientoDTO?.codigo}`,
     ]);
   };
+
+  generarRango(numero: number): number[] {
+    return Array.from({ length: numero }, (_, i) => i + 1);
+  }
 }

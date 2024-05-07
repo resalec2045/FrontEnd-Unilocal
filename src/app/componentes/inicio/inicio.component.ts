@@ -4,27 +4,36 @@ import { NavBarComponent } from '../generales/navbar/navbar.component';
 import { MapaService } from '../../services/mapa.service';
 import { Router } from '@angular/router';
 import { CartaNegocioComponent } from '../generales/carta-negocio/carta-negocio.component';
+import { NegociosService } from '../../services/negocios.service';
 import { EstablecimientoDTO } from '../../dto/EstablecimientoDTO';
-import { Ubicacion } from '../../models/Ubicacion';
-import { Horario } from '../../models/Horario';
+import { FooterComponent } from '../generales/footer/footer/footer.component';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, CartaNegocioComponent],
+  imports: [
+    RouterOutlet,
+    NavBarComponent,
+    CartaNegocioComponent,
+    FooterComponent,
+  ],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css',
 })
 export class InicioComponent implements OnInit {
-  imagen: string = '../../../assets/images/image1.jpeg';
-  imagen2: string = '../../../assets/images/image2.jpeg';
-  imagen3: string = '../../../assets/images/image3.jpeg';
+  negocios: EstablecimientoDTO[] | undefined;
 
-  // TODO: IMPLEMENTAR SERVICIO PARA OBTENER TODOS LOS ESTABLECIMIENTOS Y PINTARLOS EN LA TARJETA
+  constructor(
+    private mapaService: MapaService,
+    private negociosService: NegociosService,
+    private router: Router
+  ) {
+    this.negocios = [];
+  }
 
-  constructor(private mapaService: MapaService, private router: Router) {}
   ngOnInit(): void {
     this.mapaService.crearMapa();
+    this.negocios = this.negociosService.listar();
   }
 
   public iraBusqueda(valor: string) {

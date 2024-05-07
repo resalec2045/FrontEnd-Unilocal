@@ -1,6 +1,11 @@
 .card {
   border-radius: 15px;
 }
+.card-text {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
 .card-body {
   display: flex;
   gap: 10px;

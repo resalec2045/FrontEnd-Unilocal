@@ -3,6 +3,7 @@ import { ItemNegocioDTO } from '../../../dto/ItemNegocioDTO';
 import { NegociosService } from '../../../services/negocios.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { EstablecimientoDTO } from '../../../dto/EstablecimientoDTO';
 
 @Component({
   selector: 'app-gestion-negocios',
@@ -12,7 +13,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './gestion-negocios.component.css',
 })
 export class GestionNegociosComponent {
-  negocios: ItemNegocioDTO[];
+  negocios: EstablecimientoDTO[];
   seleccionados: ItemNegocioDTO[];
   textoBtnEliminar: String;
 
@@ -53,7 +54,7 @@ export class GestionNegociosComponent {
     this.seleccionados.forEach((n) => {
       this.negocioService.eliminar(n.codigoNegocio);
       this.negocios = this.negocios.filter(
-        (negocio) => negocio.codigoNegocio !== n.codigoNegocio
+        (negocio) => negocio.codigo !== n.codigoNegocio
       );
     });
     this.seleccionados = [];

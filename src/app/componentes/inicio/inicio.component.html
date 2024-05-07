@@ -157,7 +157,9 @@
         </select>
       </div>
     </form>
-    <app-carta-negocio></app-carta-negocio>
-    <!-- <app-carta-negocio [establecimientoDTO]="EstablecimientoDTO"></app-carta-negocio> -->
+    @for (negocio of negocios; track $index) {
+    <app-carta-negocio [establecimientoDTO]="negocio"></app-carta-negocio>
+    }
   </div>
+  <app-footer></app-footer>
 </section>

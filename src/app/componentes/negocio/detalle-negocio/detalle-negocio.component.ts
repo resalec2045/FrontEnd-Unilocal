@@ -7,16 +7,18 @@ import { ComentariosService } from '../../../services/comentarios.service';
 import { ComentarioDTO } from '../../../dto/ComentarioDTO';
 import { CommonModule } from '@angular/common';
 import { Dias } from '../../../enum/Dias';
+import { FooterComponent } from '../../generales/footer/footer/footer.component';
+import { RegistroComentarioDTO } from '../../../dto/RegistroComentarioDTO';
 
 @Component({
   selector: 'app-detalle-negocio',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, CommonModule],
+  imports: [RouterOutlet, NavBarComponent, CommonModule, FooterComponent],
   templateUrl: './detalle-negocio.component.html',
   styleUrl: './detalle-negocio.component.css',
 })
 export class DetalleNegocioComponent {
-  EstablecimientoDTO: EstablecimientoDTO | undefined;
+  establecimientoDTO: EstablecimientoDTO | undefined;
   ComentariosDTO: ComentarioDTO[] | undefined;
   codigoEstablecimiento: string = '';
 
@@ -31,6 +33,9 @@ export class DetalleNegocioComponent {
       this.obtenerComentarios();
     });
   }
+
+  // Peticiones
+
   obtenerComentarios() {
     this.ComentariosDTO = [];
     this.ComentariosDTO = this.comentariosService.obtenerComentarios(
@@ -39,23 +44,47 @@ export class DetalleNegocioComponent {
   }
 
   public obtenerNegocio() {
-    // this.codigoEstablecimiento = '66213ea875a2366c8c8635ee';
-    this.EstablecimientoDTO = new EstablecimientoDTO();
-    this.EstablecimientoDTO = this.negociosService.obtenerById(
+    this.establecimientoDTO = new EstablecimientoDTO();
+    this.establecimientoDTO = this.negociosService.obtenerById(
       this.codigoEstablecimiento
     );
   }
 
-  generarRango(numero: number): number[] {
+  public crearComentario(event: any, comentario: string, valoracion: number) {
+    event.preventDefault();
+    this.comentariosService.crearComentario(
+      new RegistroComentarioDTO(
+        // TODO: CAMBIAR POR EL ID DEL USUARIO LOGUEADO
+        '66213ea775a2366c8c8635ec',
+        this.establecimientoDTO?.codigo,
+        `${new Date('YYYY-MM-DD')}`,
+        comentario,
+        valoracion,
+        ''
+      )
+    );
+  }
+  public responderComentario(
+    event: any,
+    idComentario: string,
+    comentario: string
+  ) {
+    event.preventDefault();
+    this.comentariosService.responderComentario(idComentario, comentario);
+  }
+
+  // Metodo añadidos
+
+  public generarRango(numero: number): number[] {
     return Array.from({ length: numero }, (_, i) => i + 1);
   }
 
-  estaAbierto(): string {
+  public estaAbierto(): string {
     const fechaActual = new Date();
     const diaActual = Dias[fechaActual.getDay()];
     const horaActual = fechaActual.getHours();
 
-    const horarioEstablecimiento = this.EstablecimientoDTO?.horarios.find(
+    const horarioEstablecimiento = this.establecimientoDTO?.horarios.find(
       (horario) => horario.dia === diaActual
     );
 

@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { unilocalApi } from '../api/unilocalApi';
 import { ComentarioDTO } from '../dto/ComentarioDTO';
 import Swal from 'sweetalert2';
+import { RegistroComentarioDTO } from '../dto/RegistroComentarioDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,6 @@ export class ComentariosService {
       .get<any>(`comentarios/listar-comentarios-establecimiento/${idNegocio}`)
       .subscribe(
         (response) => {
-          console.log(response);
           comentarioDTO = response.respuesta;
         },
         (error) => {
@@ -29,5 +29,50 @@ export class ComentariosService {
       );
 
     return comentarioDTO;
+  }
+
+  public crearComentario(comentarioDTO: RegistroComentarioDTO) {
+    this.unilocalApi
+      .post<any>('comentarios/registrar-comentario', comentarioDTO)
+      .subscribe(
+        (response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Exito',
+            text: response.respuesta,
+          });
+        },
+        (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.respuesta,
+          });
+        }
+      );
+  }
+
+  public responderComentario(codigoComentario: string, respuesta: string) {
+    this.unilocalApi
+      .put<any>(
+        `comentarios/responder-comentario/${codigoComentario}`,
+        respuesta
+      )
+      .subscribe(
+        (response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Exito',
+            text: response.respuesta,
+          });
+        },
+        (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.respuesta,
+          });
+        }
+      );
   }
 }

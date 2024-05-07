@@ -12,7 +12,7 @@
                 data-bs-ride="carousel"
               >
                 <div class="carousel-inner">
-                  @for (imagen of EstablecimientoDTO?.imagenes; track $index) {
+                  @for (imagen of establecimientoDTO?.imagenes; track $index) {
                   <div class="carousel-item active">
                     <img
                       src="{{ imagen }}"
@@ -51,8 +51,9 @@
           </div>
           <div class="product_information-description">
             <div class="product_information-title">
-              <h1 class="product-name">{{ EstablecimientoDTO?.nombre }}</h1>
+              <h1 class="product-name">{{ establecimientoDTO?.nombre }}</h1>
               <div class="flex-center">
+                <!-- TODO: HACER QUE SI APARECE EN LA LISTA DE FAVORITOS SALGA CON EL CORAZON RELLENO (crear peticio para agregar a favoritos) -->
                 <i class="bx bxs-heart product_information-heart"></i>
                 <div class="product_information-disponibilidad flex-center">
                   {{ estaAbierto() }}
@@ -60,28 +61,26 @@
               </div>
             </div>
             <hr />
-            <p>{{ EstablecimientoDTO!.descripcion }}</p>
+            <p>{{ establecimientoDTO!.descripcion }}</p>
             <hr />
-            <p>Horarios: Lunes 3a9 p.m. Martes 3a9 p.m.</p>
-            @for (horarios of EstablecimientoDTO?.horarios; track $index) {
+            <p>Horarios:</p>
+            @for (horarios of establecimientoDTO?.horarios; track $index) {
             <p>
               {{ horarios.dia }}: {{ horarios.horaApertura }} -
               {{ horarios.horaCierre }}
             </p>
             }
-            <p>Categoría: {{ EstablecimientoDTO?.categoria }}</p>
-            @for ( telefonos of EstablecimientoDTO?.telefonos; track $index) {
+            <p>Categoría: {{ establecimientoDTO?.categoria }}</p>
+            @for ( telefonos of establecimientoDTO?.telefonos; track $index) {
             <p>Teléfono {{ $index + 1 }}: {{ telefonos }}</p>
             }
             <div class="product_information-calificaciones">
-              <p>Calificaciones:</p>
-              <!-- TODO: For para las calificaciones (Revisar promedio de establecimiento) -->
-              <div class="product_information-stars">
+              <p class="comentario_information-name">Calificaciones:</p>
+              <div class="">
+                @if (establecimientoDTO?.promedio != undefined) { @for (item of
+                generarRango(establecimientoDTO!.promedio); track $index) {
                 <i class="bx bxs-star star-active"></i>
-                <i class="bx bxs-star star-active"></i>
-                <i class="bx bxs-star star-active"></i>
-                <i class="bx bxs-star star-active"></i>
-                <i class="bx bxs-star"></i>
+                } }
               </div>
             </div>
           </div>
@@ -114,6 +113,7 @@
           </div>
           <span>{{ comentario?.resenia }}</span>
 
+          @if (comentario?.respuesta != "") {
           <div class="comentario_information-respuesta">
             <div class="comentario_information">
               <img
@@ -125,9 +125,73 @@
             </div>
             <span>{{ comentario?.respuesta }}</span>
           </div>
-          }
+          } @else {
+          <!-- TODO: APARECER SOLO SI SE TRATA DEL DUEÑO DEL LOCAL -->
+          <form
+            role="search"
+            (submit)="
+              responderComentario(
+                $event,
+                comentario.codigo,
+                textoResponderComentario.value
+              )
+            "
+          >
+            <div class="comentario_information-respuesta">
+              <div class="input-group comentario_information-input">
+                <input
+                  #textoResponderComentario
+                  type="search"
+                  class="form-control"
+                  placeholder="Responder comentario..."
+                  aria-label="Search"
+                />
+                <button class="btn btn-primary" type="submit">
+                  <i class="bx bxs-send"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          } }
         </div>
+        <hr />
+        <form
+          role="search"
+          (submit)="
+            crearComentario(
+              $event,
+              textoComentario.value,
+              +choiceComentario.value
+            )
+          "
+        >
+          <div class="input-group comentario_information-input">
+            <input
+              #textoComentario
+              type="search"
+              class="form-control"
+              placeholder="Crear comentario..."
+              aria-label="Search"
+            />
+            <select
+              #choiceComentario
+              class="btn btn-primary search_button"
+              id=""
+            >
+              <option value="Valoracion">Valoracion</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <button class="btn btn-primary" type="submit">
+              <i class="bx bxs-send"></i>
+            </button>
+          </div>
+        </form>
       </div>
     </section>
+    <app-footer></app-footer>
   </main>
 </div>

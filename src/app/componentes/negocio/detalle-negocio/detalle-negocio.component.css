@@ -89,3 +89,18 @@
 .comentario_information-name {
   margin-right: 10px;
 }
+
+.comentario_information-input {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.btn-primary {
+  background-color: var(--title-color);
+  border-color: var(--title-color);
+}
+
+.search_button {
+  width: initial;
+  padding: 5px 12px 6px 12px;
+}

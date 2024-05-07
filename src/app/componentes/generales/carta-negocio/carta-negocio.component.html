@@ -10,13 +10,13 @@
       </div>
       <div class="card-content">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-          excepturi velit quam numquam aut quod cumque eligendi sapiente nulla
-          perspiciatis ratione impedit dolor, natus reiciendis, autem maiores
-          nisi in? Consequatur?
+          {{ establecimientoDTO?.descripcion }}
         </p>
-        <p>Horario de atencion:</p>
-        <p>Calificacion:</p>
+        <p>Calificación:</p>
+        @if (establecimientoDTO?.promedio != undefined) { @for (item of
+        generarRango(establecimientoDTO!.promedio); track $index) {
+        <i class="bx bxs-star star-active"></i>
+        } }
       </div>
       <div class="card-text_button">
         <button class="submit-button" (click)="navigateToDetalleNegocio()">
