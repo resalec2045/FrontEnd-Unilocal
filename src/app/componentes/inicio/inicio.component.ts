@@ -33,7 +33,14 @@ export class InicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapaService.crearMapa();
-    this.negocios = this.negociosService.listar();
+    this.negociosService.listar().subscribe({
+      next: (response) => {
+        this.negocios = response;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
   public iraBusqueda(valor: string) {

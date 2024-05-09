@@ -4,8 +4,8 @@ import { AuthComponent } from '../auth.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginDTO } from '../../../dto/LoginDTO';
-import { unilocalApi } from '../../../api/unilocalApi';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,7 +28,7 @@ export class LoginComponent {
   @Output() switchToRegisterEvent = new EventEmitter<void>();
   @Output() switchToRecoveryEvent = new EventEmitter<void>();
 
-  constructor(private unilocalApi: unilocalApi, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.loginDTO = new LoginDTO();
   }
 
@@ -41,18 +41,25 @@ export class LoginComponent {
   }
 
   loginSubmit() {
-    this.unilocalApi.post<any>('auth/login-cliente', this.loginDTO).subscribe(
-      (response) => {
-        this.unilocalApi.setAuthToken(response.respuesta.token);
+    this.authService.login(this.loginDTO).subscribe({
+      next: (response) => {
+        Swal.fire({
+          title: 'Inicio de sesión exitoso',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         this.router.navigate(['/inicio']);
       },
-      (error) => {
+      error: (error) => {
         Swal.fire({
-          icon: 'error',
           title: 'Error',
-          text: error.error.respuesta,
+          text: error.error.message,
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500,
         });
-      }
-    );
+      },
+    });
   }
 }

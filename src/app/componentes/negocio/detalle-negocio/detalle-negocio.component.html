@@ -93,16 +93,15 @@
             >
           </div>
 
-          @for (comentario of ComentariosDTO; track $index) {
+          @for (comentario of comentariosDTO; track $index) {
           <div class="comentario_information">
             <img
-              src="../../../../assets/icons/icontao.jpg"
+              src="http://res.cloudinary.com/duykwcgkw/image/upload/v1713369817/unilocal/wk8cvjxkwkn68xnydidj.jpg"
               alt="..."
               class="comentario_information-image"
             />
-            <!-- TODO: IMPLEMENTAR PETICION PARA TRAER EL CLIENTE -->
             <span class="comentario_information-name"
-              >Armando Esteban Quito</span
+              >{{comentario?.nombreUsuario}}</span
             >
             <div class="">
               <i
@@ -115,14 +114,6 @@
 
           @if (comentario?.respuesta != "") {
           <div class="comentario_information-respuesta">
-            <div class="comentario_information">
-              <img
-                src="../../../../assets/icons/iconklee.jpg"
-                alt="..."
-                class="comentario_information-image"
-              />
-              <span>Elsa Pallo</span>
-            </div>
             <span>{{ comentario?.respuesta }}</span>
           </div>
           } @else {
@@ -132,7 +123,7 @@
             (submit)="
               responderComentario(
                 $event,
-                comentario.codigo,
+                comentario.codigoComentario,
                 textoResponderComentario.value
               )
             "

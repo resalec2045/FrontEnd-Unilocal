@@ -25,7 +25,7 @@ export class GestionNegociosComponent {
   }
 
   public listarNegocios() {
-    this.negocios = this.negocioService.listar();
+    // this.negocios = this.negocioService.listar();
   }
 
   public seleccionar(item: ItemNegocioDTO, estado: boolean) {

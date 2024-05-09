@@ -3,8 +3,11 @@ import { ItemNegocioDTO } from '../dto/ItemNegocioDTO';
 import { RegistroNegocioDTO } from '../dto/RegistroNegocioDTO';
 import { EstablecimientoDTO } from '../dto/EstablecimientoDTO';
 import { Inject } from '@angular/core';
-import { unilocalApi } from '../api/unilocalApi';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../env/environment';
 import Swal from 'sweetalert2';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,50 +15,26 @@ import Swal from 'sweetalert2';
 export class NegociosService {
   negocios: EstablecimientoDTO[];
 
-  constructor(@Inject(unilocalApi) private unilocalApi: unilocalApi) {
+  constructor(private tokenService: TokenService, private http: HttpClient) {
     this.negocios = [];
   }
 
-  public listar(): EstablecimientoDTO[] {
-    this.unilocalApi
-      .get<any>('establecimiento/listar-establecimientos')
-      .subscribe(
-        (response) => {
-          this.negocios = response;
-        },
-        (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.error.respuesta,
-          });
-        }
-      );
-
-    return this.negocios;
+  public listar(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/listar-establecimientos`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
   }
 
-  public obtenerById(codigoEstablecimiento: string): EstablecimientoDTO {
-    let establecimientoDTO: EstablecimientoDTO = new EstablecimientoDTO();
-
-    this.unilocalApi
-      .get<any>(`establecimiento/${codigoEstablecimiento}`)
-      .subscribe(
-        (response) => {
-          // TODO: Remove this line
-          response.promedio = 3;
-          establecimientoDTO = response;
-        },
-        (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.error.respuesta,
-          });
-        }
-      );
-
-    return establecimientoDTO;
+  public obtenerById(codigoEstablecimiento: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/${codigoEstablecimiento}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
   }
 
   public crear(negocioNuevo: RegistroNegocioDTO) {}

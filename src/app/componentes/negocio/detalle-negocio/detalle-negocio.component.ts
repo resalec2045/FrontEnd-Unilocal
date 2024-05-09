@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Dias } from '../../../enum/Dias';
 import { FooterComponent } from '../../generales/footer/footer/footer.component';
 import { RegistroComentarioDTO } from '../../../dto/RegistroComentarioDTO';
+import { ItemComentarioDTO } from '../../../dto/ItemComentarioDTO';
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -19,7 +20,7 @@ import { RegistroComentarioDTO } from '../../../dto/RegistroComentarioDTO';
 })
 export class DetalleNegocioComponent {
   establecimientoDTO: EstablecimientoDTO | undefined;
-  ComentariosDTO: ComentarioDTO[] | undefined;
+  comentariosDTO: ItemComentarioDTO[] | undefined;
   codigoEstablecimiento: string = '';
 
   constructor(
@@ -37,17 +38,31 @@ export class DetalleNegocioComponent {
   // Peticiones
 
   obtenerComentarios() {
-    this.ComentariosDTO = [];
-    this.ComentariosDTO = this.comentariosService.obtenerComentarios(
+    this.comentariosDTO = [];
+    this.comentariosService.obtenerComentarios(
       this.codigoEstablecimiento
-    );
+    ).subscribe({
+      next: (response) => {
+        this.comentariosDTO = response.respuesta;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   public obtenerNegocio() {
     this.establecimientoDTO = new EstablecimientoDTO();
-    this.establecimientoDTO = this.negociosService.obtenerById(
+    this.negociosService.obtenerById(
       this.codigoEstablecimiento
-    );
+    ).subscribe({
+      next: (response) => {
+        this.establecimientoDTO = response;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   public crearComentario(event: any, comentario: string, valoracion: number) {
