@@ -6,6 +6,7 @@ import {
   Input,
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'navbar',
@@ -17,10 +18,13 @@ import { Router, RouterOutlet } from '@angular/router';
 export class NavBarComponent implements AfterViewInit {
   navbarOriginalPosition: number = 0;
   isFixed = false;
+  isLogged = false;
 
   @Input() type: string = 'header-login';
 
-  constructor(private el: ElementRef, private router: Router) {}
+  constructor(private tokenService: TokenService, private el: ElementRef, private router: Router) {
+    this.isLogged = this.tokenService.isLogged();
+  }
 
   ngAfterViewInit() {
     this.navbarOriginalPosition =
@@ -34,6 +38,7 @@ export class NavBarComponent implements AfterViewInit {
   }
 
   navigateToLogin(page: string) {
+    this.tokenService.logout();
     this.router.navigate(['/auth']);
   }
 

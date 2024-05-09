@@ -116,8 +116,7 @@
           <div class="comentario_information-respuesta">
             <span>{{ comentario?.respuesta }}</span>
           </div>
-          } @else {
-          <!-- TODO: APARECER SOLO SI SE TRATA DEL DUEÑO DEL LOCAL -->
+          } @else if (isDueno){
           <form
             role="search"
             (submit)="
@@ -146,41 +145,43 @@
           } }
         </div>
         <hr />
-        <form
-          role="search"
-          (submit)="
-            crearComentario(
-              $event,
-              textoComentario.value,
-              +choiceComentario.value
-            )
-          "
-        >
-          <div class="input-group comentario_information-input">
-            <input
-              #textoComentario
-              type="search"
-              class="form-control"
-              placeholder="Crear comentario..."
-              aria-label="Search"
-            />
-            <select
-              #choiceComentario
-              class="btn btn-primary search_button"
-              id=""
-            >
-              <option value="Valoracion">Valoracion</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button class="btn btn-primary" type="submit">
-              <i class="bx bxs-send"></i>
-            </button>
-          </div>
-        </form>
+        @if (isLogged) {
+          <form
+            role="search"
+            (submit)="
+              crearComentario(
+                $event,
+                textoComentario.value,
+                +choiceComentario.value
+              )
+            "
+          >
+            <div class="input-group comentario_information-input">
+              <input
+                #textoComentario
+                type="search"
+                class="form-control"
+                placeholder="Crear comentario..."
+                aria-label="Search"
+              />
+              <select
+                #choiceComentario
+                class="btn btn-primary search_button"
+                id=""
+              >
+                <option value="Valoracion">Valoracion</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button class="btn btn-primary" type="submit">
+                <i class="bx bxs-send"></i>
+              </button>
+            </div>
+          </form>
+        }
       </div>
     </section>
     <app-footer></app-footer>

@@ -25,6 +25,7 @@
     </div>
     <div class="search">
       <ul class="nav__list">
+        @if (!isLogged) {
         <a
           class="nav__link"
           (click)="navigateToLogin('login')"
@@ -32,6 +33,15 @@
         >
           Iniciar sesión
         </a>
+        } @else {
+          <a
+          class="nav__link"
+          (click)="navigateToLogin('login')"
+          routerLink="/auth"
+        >
+          Cerrar sesión
+        </a>
+        } 
       </ul>
     </div>
   </nav>

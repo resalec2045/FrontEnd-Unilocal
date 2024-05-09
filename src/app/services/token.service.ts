@@ -2,20 +2,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Buffer } from "buffer";
+import Swal from 'sweetalert2';
 
 const TOKEN_KEY = 'AuthToken';
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
-  private authToken: string = '';
+  private authToken: any = '';
 
   constructor(private router: Router, private http: HttpClient) {}
 
-  public setToken(token: string) {
+  public setToken() {
     window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
-    this.authToken = token;
+    window.sessionStorage.setItem(TOKEN_KEY, this.authToken);
   }
 
   public getToken(): string | null {
@@ -30,17 +30,24 @@ export class TokenService {
   }
 
   public login(token: string) {
-    this.setToken(token);
-    this.router.navigate(['/']);
+    this.authToken = token;
+    this.setToken();
+    this.router.navigate(['/inicio']);
   }
 
   public logout() {
     window.sessionStorage.clear();
+    Swal.fire({
+      title: 'Sesión cerrada',
+      text: 'Hasta luego :3',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
     this.router.navigate(['/login']);
   }
 
-  private decodePayload(token: string): any {
-    const payload = token!.split('.')[1];
+  public decodePayload(): any {
+    const payload = this.authToken.token!.split('.')[1];
     const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');
     const values = JSON.parse(payloadDecoded);
     return values;

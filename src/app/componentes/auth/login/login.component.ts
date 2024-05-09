@@ -7,6 +7,7 @@ import { LoginDTO } from '../../../dto/LoginDTO';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'login_component',
@@ -28,7 +29,7 @@ export class LoginComponent {
   @Output() switchToRegisterEvent = new EventEmitter<void>();
   @Output() switchToRecoveryEvent = new EventEmitter<void>();
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private tokenService: TokenService,private authService: AuthService, private router: Router) {
     this.loginDTO = new LoginDTO();
   }
 
@@ -43,13 +44,13 @@ export class LoginComponent {
   loginSubmit() {
     this.authService.login(this.loginDTO).subscribe({
       next: (response) => {
+        this.tokenService.login(response.respuesta);
         Swal.fire({
           title: 'Inicio de sesión exitoso',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
         });
-        this.router.navigate(['/inicio']);
       },
       error: (error) => {
         Swal.fire({

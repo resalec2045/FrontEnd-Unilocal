@@ -10,6 +10,8 @@ import { Dias } from '../../../enum/Dias';
 import { FooterComponent } from '../../generales/footer/footer/footer.component';
 import { RegistroComentarioDTO } from '../../../dto/RegistroComentarioDTO';
 import { ItemComentarioDTO } from '../../../dto/ItemComentarioDTO';
+import { TokenService } from '../../../services/token.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -22,14 +24,18 @@ export class DetalleNegocioComponent {
   establecimientoDTO: EstablecimientoDTO | undefined;
   comentariosDTO: ItemComentarioDTO[] | undefined;
   codigoEstablecimiento: string = '';
+  isDueno: boolean = false;
+  isLogged = false;
 
   constructor(
     private route: ActivatedRoute,
     private negociosService: NegociosService,
-    private comentariosService: ComentariosService
+    private comentariosService: ComentariosService,
+    private tokenService: TokenService
   ) {
     this.route.params.subscribe((params) => {
       this.codigoEstablecimiento = params['codigo'];
+      this.isLogged = this.tokenService.isLogged();
       this.obtenerNegocio();
       this.obtenerComentarios();
     });
@@ -37,27 +43,34 @@ export class DetalleNegocioComponent {
 
   // Peticiones
 
-  obtenerComentarios() {
+  public obtenerComentarios() {
     this.comentariosDTO = [];
-    this.comentariosService.obtenerComentarios(
-      this.codigoEstablecimiento
-    ).subscribe({
-      next: (response) => {
-        this.comentariosDTO = response.respuesta;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    this.comentariosService
+      .obtenerComentarios(this.codigoEstablecimiento)
+      .subscribe({
+        next: (response) => {
+          this.comentariosDTO = response.respuesta;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 
   public obtenerNegocio() {
     this.establecimientoDTO = new EstablecimientoDTO();
-    this.negociosService.obtenerById(
-      this.codigoEstablecimiento
-    ).subscribe({
+    this.negociosService.obtenerById(this.codigoEstablecimiento).subscribe({
       next: (response) => {
         this.establecimientoDTO = response;
+        if (this.tokenService.isLogged()) {
+          this.userIsDueno();
+        } else {
+          Swal.fire({
+            title: 'Inicia sesión',
+            text: 'Para poder realizar un comentario debes iniciar sesión',
+            icon: 'warning',
+          });
+        }
       },
       error: (error) => {
         console.log(error);
@@ -67,10 +80,10 @@ export class DetalleNegocioComponent {
 
   public crearComentario(event: any, comentario: string, valoracion: number) {
     event.preventDefault();
+    const { id } = this.tokenService.decodePayload();
     this.comentariosService.crearComentario(
       new RegistroComentarioDTO(
-        // TODO: CAMBIAR POR EL ID DEL USUARIO LOGUEADO
-        '66213ea775a2366c8c8635ec',
+        id,
         this.establecimientoDTO?.codigo,
         `${new Date('YYYY-MM-DD')}`,
         comentario,
@@ -87,8 +100,6 @@ export class DetalleNegocioComponent {
     event.preventDefault();
     this.comentariosService.responderComentario(idComentario, comentario);
   }
-
-  // Metodo añadidos
 
   public generarRango(numero: number): number[] {
     return Array.from({ length: numero }, (_, i) => i + 1);
@@ -115,5 +126,13 @@ export class DetalleNegocioComponent {
     } else {
       return 'Cerrado';
     }
+  }
+  
+  public userIsDueno() {
+    const { id } = this.tokenService.decodePayload();
+
+    id === this.establecimientoDTO?.codigoUsuario
+      ? (this.isDueno = true)
+      : (this.isDueno = false);
   }
 }
