@@ -1,0 +1,5 @@
+.card-title_corazon {
+  cursor: pointer;
+  color: var(--title-color);
+  font-size: 2rem;
+}

@@ -7,6 +7,8 @@ import { CartaNegocioComponent } from '../generales/carta-negocio/carta-negocio.
 import { NegociosService } from '../../services/negocios.service';
 import { EstablecimientoDTO } from '../../dto/EstablecimientoDTO';
 import { FooterComponent } from '../generales/footer/footer/footer.component';
+import { AuthService } from '../../services/auth.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-inicio',
@@ -22,13 +24,17 @@ import { FooterComponent } from '../generales/footer/footer/footer.component';
 })
 export class InicioComponent implements OnInit {
   negocios: EstablecimientoDTO[] | undefined;
+  favoritos: string[];
 
   constructor(
     private mapaService: MapaService,
+    private authService: AuthService,
     private negociosService: NegociosService,
+    private tokenService: TokenService,
     private router: Router
   ) {
     this.negocios = [];
+    this.favoritos = [];
   }
 
   ngOnInit(): void {
@@ -39,13 +45,32 @@ export class InicioComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-      }
+      },
     });
+    if (this.tokenService.isLogged()) {
+      this.listarFavoritos();
+    }
   }
 
   public iraBusqueda(valor: string) {
     if (valor) {
       this.router.navigate(['/busqueda', valor]);
     }
+  }
+
+  public listarFavoritos() {
+    const { id } = this.tokenService.decodePayload();
+    this.authService.listarFavoritos(id).subscribe({
+      next: (response) => {
+        this.favoritos = response.respuesta;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  public esFavorito(codigo: string): boolean {
+    return this.favoritos.includes(codigo);
   }
 }

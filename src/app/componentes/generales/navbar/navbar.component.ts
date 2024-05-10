@@ -22,7 +22,11 @@ export class NavBarComponent implements AfterViewInit {
 
   @Input() type: string = 'header-login';
 
-  constructor(private tokenService: TokenService, private el: ElementRef, private router: Router) {
+  constructor(
+    private tokenService: TokenService,
+    private el: ElementRef,
+    private router: Router
+  ) {
     this.isLogged = this.tokenService.isLogged();
   }
 
@@ -37,7 +41,7 @@ export class NavBarComponent implements AfterViewInit {
     this.isFixed = currentScrollPosition > this.navbarOriginalPosition;
   }
 
-  navigateToLogin(page: string) {
+  navigateToLogin() {
     this.tokenService.logout();
     this.router.navigate(['/auth']);
   }

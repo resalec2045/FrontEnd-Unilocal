@@ -12,11 +12,18 @@ import { RegistroComentarioDTO } from '../../../dto/RegistroComentarioDTO';
 import { ItemComentarioDTO } from '../../../dto/ItemComentarioDTO';
 import { TokenService } from '../../../services/token.service';
 import Swal from 'sweetalert2';
+import { AgregarFavoritosComponent } from '../../generales/agregar-favoritos/agregar-favoritos.component';
 
 @Component({
   selector: 'app-detalle-negocio',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, CommonModule, FooterComponent],
+  imports: [
+    RouterOutlet,
+    NavBarComponent,
+    CommonModule,
+    FooterComponent,
+    AgregarFavoritosComponent,
+  ],
   templateUrl: './detalle-negocio.component.html',
   styleUrl: './detalle-negocio.component.css',
 })
@@ -26,6 +33,8 @@ export class DetalleNegocioComponent {
   codigoEstablecimiento: string = '';
   isDueno: boolean = false;
   isLogged = false;
+  // TODO: implementar el componente de favoritos
+  isFavorite: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -91,6 +100,7 @@ export class DetalleNegocioComponent {
         ''
       )
     );
+    this.obtenerComentarios();
   }
   public responderComentario(
     event: any,
@@ -99,6 +109,7 @@ export class DetalleNegocioComponent {
   ) {
     event.preventDefault();
     this.comentariosService.responderComentario(idComentario, comentario);
+    this.obtenerComentarios();
   }
 
   public generarRango(numero: number): number[] {
@@ -127,7 +138,7 @@ export class DetalleNegocioComponent {
       return 'Cerrado';
     }
   }
-  
+
   public userIsDueno() {
     const { id } = this.tokenService.decodePayload();
 

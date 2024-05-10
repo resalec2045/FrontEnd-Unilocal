@@ -6,7 +6,12 @@
     <div class="card-text">
       <div class="card-title">
         <h2 class="text-center">{{ establecimientoDTO?.nombre }}</h2>
-        <i class="bx bx-heart card-title_corazon flex-center"></i>
+        @if (isLogged) {
+        <app-agregar-favoritos
+          [codigoEstablecimiento]="establecimientoDTO!.codigo"
+          [isFavorite]="isFavorite"
+        ></app-agregar-favoritos>
+        }
       </div>
       <div class="card-content">
         <p>

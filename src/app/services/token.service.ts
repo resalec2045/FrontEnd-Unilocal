@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Buffer } from "buffer";
+import { Buffer } from 'buffer';
 import Swal from 'sweetalert2';
 
 const TOKEN_KEY = 'AuthToken';
@@ -36,13 +36,15 @@ export class TokenService {
   }
 
   public logout() {
+    if (this.authToken != '') {
+      Swal.fire({
+        title: 'Sesión cerrada',
+        text: 'Hasta luego :3',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
+    }
     window.sessionStorage.clear();
-    Swal.fire({
-      title: 'Sesión cerrada',
-      text: 'Hasta luego :3',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-    });
     this.router.navigate(['/login']);
   }
 
@@ -54,9 +56,11 @@ export class TokenService {
   }
 
   public getRequestHeaders(): HttpHeaders {
+    console.log(this.authToken.token);
     let headers = new HttpHeaders({
-      'Authorization': 'Bearer' + this.authToken,
+      Authorization: 'Bearer' + this.authToken.token,
     });
+    console.log(headers);
     return headers;
   }
 }

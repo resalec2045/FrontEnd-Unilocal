@@ -53,8 +53,10 @@
             <div class="product_information-title">
               <h1 class="product-name">{{ establecimientoDTO?.nombre }}</h1>
               <div class="flex-center">
-                <!-- TODO: HACER QUE SI APARECE EN LA LISTA DE FAVORITOS SALGA CON EL CORAZON RELLENO (crear peticio para agregar a favoritos) -->
-                <i class="bx bxs-heart product_information-heart"></i>
+                <app-agregar-favoritos
+                  [codigoEstablecimiento]="establecimientoDTO!.codigo"
+                  [isFavorite]="isFavorite"
+                ></app-agregar-favoritos>
                 <div class="product_information-disponibilidad flex-center">
                   {{ estaAbierto() }}
                 </div>
@@ -100,9 +102,9 @@
               alt="..."
               class="comentario_information-image"
             />
-            <span class="comentario_information-name"
-              >{{comentario?.nombreUsuario}}</span
-            >
+            <span class="comentario_information-name">{{
+              comentario?.nombreUsuario
+            }}</span>
             <div class="">
               <i
                 *ngFor="let val of generarRango(+comentario.valoracion)"
@@ -114,7 +116,10 @@
 
           @if (comentario?.respuesta != "") {
           <div class="comentario_information-respuesta">
-            <span>{{ comentario?.respuesta }}</span>
+            <span
+              ><b>Respuesta por parte del creador:</b>
+              {{ comentario?.respuesta }}</span
+            >
           </div>
           } @else if (isDueno){
           <form
@@ -146,41 +151,41 @@
         </div>
         <hr />
         @if (isLogged) {
-          <form
-            role="search"
-            (submit)="
-              crearComentario(
-                $event,
-                textoComentario.value,
-                +choiceComentario.value
-              )
-            "
-          >
-            <div class="input-group comentario_information-input">
-              <input
-                #textoComentario
-                type="search"
-                class="form-control"
-                placeholder="Crear comentario..."
-                aria-label="Search"
-              />
-              <select
-                #choiceComentario
-                class="btn btn-primary search_button"
-                id=""
-              >
-                <option value="Valoracion">Valoracion</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-              <button class="btn btn-primary" type="submit">
-                <i class="bx bxs-send"></i>
-              </button>
-            </div>
-          </form>
+        <form
+          role="search"
+          (submit)="
+            crearComentario(
+              $event,
+              textoComentario.value,
+              +choiceComentario.value
+            )
+          "
+        >
+          <div class="input-group comentario_information-input">
+            <input
+              #textoComentario
+              type="search"
+              class="form-control"
+              placeholder="Crear comentario..."
+              aria-label="Search"
+            />
+            <select
+              #choiceComentario
+              class="btn btn-primary search_button"
+              id=""
+            >
+              <option value="Valoracion">Valoracion</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <button class="btn btn-primary" type="submit">
+              <i class="bx bxs-send"></i>
+            </button>
+          </div>
+        </form>
         }
       </div>
     </section>
