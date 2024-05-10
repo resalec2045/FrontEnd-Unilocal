@@ -1,0 +1,66 @@
+.card_container{
+    background-color: white;
+    width: 900px;
+    height: 600px;
+    border-radius: 40px;
+    padding: 35px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card_information{
+    width: 400px;
+    justify-content: space-between;
+    margin-top: 20px;
+    
+}
+
+.image{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: brown;
+}
+
+
+.editable-field {
+    position: relative; /* Añade posición relativa para que el círculo interno pueda posicionarse correctamente */
+}
+
+.editable-field input {
+    background-color: transparent; /* Hace que el fondo del campo de entrada sea transparente */
+    border: none; /* Elimina el borde del campo de entrada */
+    width: 300px; /* Ajusta el ancho del campo de entrada */
+    font-size: inherit; /* Hereda el tamaño de fuente del elemento padre */
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--title-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 310px; /* Ajusta el margen según necesites */
+    margin-top: -40px;
+}
+
+.circle img {
+    width: 20px; /* Ajusta el tamaño del ícono según necesites */
+    height: 20px;
+}
+
+
+.edit-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #fff; /* Puedes cambiar el color de fondo del ícono de cámara aquí */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

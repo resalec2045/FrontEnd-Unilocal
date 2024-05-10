@@ -1,0 +1,69 @@
+<div class="app">
+    <main>
+        <navbar [type]="'header'">
+        </navbar>
+        <section class="section">
+            <div class="card_container container grid">
+                <h1 class="flex-center">
+                    Ajustes
+                </h1>
+                <div class="flex-center">
+                    <div class="card_information">
+                        <span>
+                            Nombre:
+                        </span>
+                        <div class="editable-field">
+                            <input type="text">
+                            <div class="circle">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                        <span>
+                            Apodo:
+                        </span>
+                        <div class="editable-field">
+                            <input type="text">
+                            <div class="circle">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                        <span>
+                            Correo:
+                        </span>
+                        <div class="editable-field">
+                            <input type="email">
+                            <div class="circle">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                        <span>
+                            contraseña:
+                        </span>
+                        <div class="editable-field">
+                            <input type="password">
+                            <div class="circle">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card_image">
+                        <div class="image">
+                            <div class="profile-picture">
+                                <!-- <img src="assets\icons\icontao.jpg" alt="Imagen de perfil"> -->
+                            </div>
+                        </div>
+                        <div class="circle">
+                            <img src="assets\svg\camara.svg" alt="Ícono">
+                        </div>
+                    </div>
+                </div>
+                <div class="card_buttons flex-center">
+                    <button class="submit-button">Aceptar cambios</button>
+                    <button class="submit-button">Eliminar cuenta</button>
+                </div>
+
+            </div>
+        </section>
+        <app-footer></app-footer>
+    </main>
+</div>

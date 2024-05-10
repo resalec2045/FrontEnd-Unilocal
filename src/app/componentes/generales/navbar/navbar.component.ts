@@ -45,4 +45,8 @@ export class NavBarComponent implements AfterViewInit {
   navigateToHome() {
     this.router.navigate(['/inicio']);
   }
+
+  navigateToAjustes() {
+    this.router.navigate(['/ajustes']);
+  }
 }
