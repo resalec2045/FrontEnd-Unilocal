@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
 import { TokenService } from '../../../services/token.service';
+import { ClienteService } from '../../../services/cliente.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,14 +15,14 @@ export class AgregarFavoritosComponent {
   @Input() isFavorite: boolean = false;
 
   constructor(
-    private authService: AuthService,
+    private clienteService: ClienteService,
     private tokenService: TokenService
   ) {}
 
   public agregarFavorito = () => {
     const { id } = this.tokenService.decodePayload();
     console.log(this.codigoEstablecimiento, id);
-    this.authService.marcarFavorito(this.codigoEstablecimiento, id).subscribe({
+    this.clienteService.marcarFavorito(this.codigoEstablecimiento, id).subscribe({
       next: (response) => {
         this.isFavorite = true;
         Swal.fire({
@@ -40,7 +40,7 @@ export class AgregarFavoritosComponent {
 
   public eliminarLugarFavorito = () => {
     const { id } = this.tokenService.decodePayload();
-    this.authService
+    this.clienteService
       .eliminarFavorito(this.codigoEstablecimiento, id)
       .subscribe({
         next: (response) => {

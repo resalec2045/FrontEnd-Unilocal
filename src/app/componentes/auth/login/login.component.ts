@@ -44,7 +44,7 @@ export class LoginComponent {
   loginSubmit() {
     this.authService.login(this.loginDTO).subscribe({
       next: (response) => {
-        this.tokenService.login(response.respuesta);
+        this.tokenService.login(response.respuesta.token);
         Swal.fire({
           title: 'Inicio de sesión exitoso',
           icon: 'success',

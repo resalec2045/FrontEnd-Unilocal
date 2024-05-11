@@ -9,16 +9,21 @@ const TOKEN_KEY = 'AuthToken';
   providedIn: 'root',
 })
 export class TokenService {
-  private authToken: any = '';
+  private authToken: string | null = '';
 
   constructor(private router: Router, private http: HttpClient) {}
 
   public setToken() {
     window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, this.authToken);
+    window.sessionStorage.setItem(TOKEN_KEY, this.authToken!);
   }
 
   public getToken(): string | null {
+    try {
+      this.authToken = sessionStorage.getItem(TOKEN_KEY);
+    } catch (error) {
+      this.authToken = '';
+    }
     return this.authToken;
   }
 
@@ -49,16 +54,16 @@ export class TokenService {
   }
 
   public decodePayload(): any {
-    const payload = this.authToken.token!.split('.')[1];
+    const payload = this.authToken!.split('.')[1];
     const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');
     const values = JSON.parse(payloadDecoded);
     return values;
   }
 
   public getRequestHeaders(): HttpHeaders {
-    console.log(this.authToken.token);
+    console.log(this.authToken);
     let headers = new HttpHeaders({
-      Authorization: 'Bearer' + this.authToken.token,
+      Authorization: `Bearer ${this.authToken}`,
     });
     console.log(headers);
     return headers;

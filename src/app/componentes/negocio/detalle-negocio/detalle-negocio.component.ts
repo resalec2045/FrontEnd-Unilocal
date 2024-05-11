@@ -4,15 +4,14 @@ import { NegociosService } from '../../../services/negocios.service';
 import { EstablecimientoDTO } from '../../../dto/EstablecimientoDTO';
 import { NavBarComponent } from '../../generales/navbar/navbar.component';
 import { ComentariosService } from '../../../services/comentarios.service';
-import { ComentarioDTO } from '../../../dto/ComentarioDTO';
 import { CommonModule } from '@angular/common';
 import { Dias } from '../../../enum/Dias';
 import { FooterComponent } from '../../generales/footer/footer/footer.component';
 import { RegistroComentarioDTO } from '../../../dto/RegistroComentarioDTO';
 import { ItemComentarioDTO } from '../../../dto/ItemComentarioDTO';
 import { TokenService } from '../../../services/token.service';
-import Swal from 'sweetalert2';
 import { AgregarFavoritosComponent } from '../../generales/agregar-favoritos/agregar-favoritos.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-negocio',

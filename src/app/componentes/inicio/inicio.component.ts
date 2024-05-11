@@ -9,6 +9,7 @@ import { EstablecimientoDTO } from '../../dto/EstablecimientoDTO';
 import { FooterComponent } from '../generales/footer/footer/footer.component';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
+import { ClienteService } from '../../services/cliente.service';
 
 @Component({
   selector: 'app-inicio',
@@ -29,6 +30,7 @@ export class InicioComponent implements OnInit {
   constructor(
     private mapaService: MapaService,
     private authService: AuthService,
+    private clienteService: ClienteService,
     private negociosService: NegociosService,
     private tokenService: TokenService,
     private router: Router
@@ -60,7 +62,7 @@ export class InicioComponent implements OnInit {
 
   public listarFavoritos() {
     const { id } = this.tokenService.decodePayload();
-    this.authService.listarFavoritos(id).subscribe({
+    this.clienteService.listarFavoritos(id).subscribe({
       next: (response) => {
         this.favoritos = response.respuesta;
       },
