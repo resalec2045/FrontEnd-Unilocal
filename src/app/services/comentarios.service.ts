@@ -22,48 +22,28 @@ export class ComentariosService {
     );
   }
 
-  public crearComentario(comentarioDTO: RegistroComentarioDTO) {
-    
-    this.http
-      .post<any>(`${environment.apiUrl}/comentarios/registrar-comentario`, comentarioDTO)
-      .subscribe({
-        next: (response) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Exito',
-            text: response.respuesta,
-          });
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.error.respuesta,
-          });
-        },
-      });
+  public crearComentario(
+    comentarioDTO: RegistroComentarioDTO
+  ): Observable<any> {
+    return this.http.post<any>(
+      `${environment.apiUrl}/comentarios/registrar-comentario`,
+      comentarioDTO,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
   }
 
-  public responderComentario(codigoComentario: string, respuesta: string) {
-    this.http
-      .put<any>(`${environment.apiUrl}/comentarios/responder-comentario/${codigoComentario}`, {
+  // TODO: Implementar la respuesta a un comentario para quitar el bug
+  public responderComentario(codigoComentario: string, respuesta: string): Observable<any> {
+    return this.http.put<any>(
+      `${environment.apiUrl}/comentarios/responder-comentario/${codigoComentario}`,
+      {
         ComentarioInsertado: respuesta,
-      })
-      .subscribe({
-        next: (response) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Exito',
-            text: response.respuesta,
-          });
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.error.respuesta,
-          });
-        },
-      });
+      },
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
   }
 }

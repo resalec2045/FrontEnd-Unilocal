@@ -158,7 +158,7 @@
       </div>
     </form>
     @for (negocio of negocios; track $index) {
-    <app-carta-negocio [establecimientoDTO]="negocio"></app-carta-negocio>
+    <app-carta-negocio [establecimientoDTO]="negocio" [isFavorite]="esFavorito(negocio!.codigo)"></app-carta-negocio>
     }
   </div>
   <app-footer></app-footer>

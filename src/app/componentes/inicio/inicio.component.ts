@@ -29,7 +29,6 @@ export class InicioComponent implements OnInit {
 
   constructor(
     private mapaService: MapaService,
-    private authService: AuthService,
     private clienteService: ClienteService,
     private negociosService: NegociosService,
     private tokenService: TokenService,

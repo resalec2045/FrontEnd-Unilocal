@@ -61,11 +61,9 @@ export class TokenService {
   }
 
   public getRequestHeaders(): HttpHeaders {
-    console.log(this.authToken);
     let headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
     });
-    console.log(headers);
     return headers;
   }
 }

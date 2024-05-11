@@ -16,7 +16,7 @@ import { AgregarFavoritosComponent } from '../agregar-favoritos/agregar-favorito
 export class CartaNegocioComponent {
   @Input() establecimientoDTO: EstablecimientoDTO | undefined;
   @Input() isLogged = false;
-  isFavorite: boolean = false;
+  @Input() isFavorite: boolean = false;
 
   constructor(
     private authService: AuthService,
