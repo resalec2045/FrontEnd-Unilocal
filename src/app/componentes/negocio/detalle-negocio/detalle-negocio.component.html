@@ -110,6 +110,9 @@
                 *ngFor="let val of generarRango(+comentario.valoracion)"
                 class="bx bxs-star star-active"
               ></i>
+              @if (isDuenoComentario(comentario!.codigoUsuario)) {
+                <i class='bx bx-trash trash_button' (click)="eliminarComentario(comentario.codigoComentario)"></i>
+              }
             </div>
           </div>
           <span>{{ comentario?.resenia }}</span>

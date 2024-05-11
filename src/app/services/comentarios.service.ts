@@ -34,13 +34,21 @@ export class ComentariosService {
     );
   }
 
-  // TODO: Implementar la respuesta a un comentario para quitar el bug
   public responderComentario(codigoComentario: string, respuesta: string): Observable<any> {
     return this.http.put<any>(
       `${environment.apiUrl}/comentarios/responder-comentario/${codigoComentario}`,
       {
         ComentarioInsertado: respuesta,
       },
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public eliminarComentario(codigoComentario: string): Observable<any> {
+    return this.http.delete<any>(
+      `${environment.apiUrl}/comentarios/eliminar-comentario/${codigoComentario}`,
       {
         headers: this.tokenService.getRequestHeaders(),
       }

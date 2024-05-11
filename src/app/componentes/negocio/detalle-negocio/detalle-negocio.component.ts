@@ -31,11 +31,10 @@ export class DetalleNegocioComponent {
   establecimientoDTO: EstablecimientoDTO | undefined;
   comentariosDTO: ItemComentarioDTO[] | undefined;
   codigoEstablecimiento: string = '';
+  isFavorite: boolean = false;
   isDueno: boolean = false;
   isLogged = false;
   favoritos: string[];
-  // TODO: implementar el componente de favoritos
-  isFavorite: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -206,5 +205,30 @@ export class DetalleNegocioComponent {
 
   public esFavorito(codigo: string): boolean {
     return this.favoritos.includes(codigo);
+  }
+
+  public isDuenoComentario(idUsuario: string): boolean {
+    const { id } = this.tokenService.decodePayload();
+    return id === idUsuario;
+  }
+
+  public eliminarComentario(idComentario: string) {
+    this.comentariosService.eliminarComentario(idComentario).subscribe({
+      next: (response) => {
+        this.obtenerComentarios();
+        Swal.fire({
+          icon: 'success',
+          title: 'Exito',
+          text: response.respuesta,
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error.respuesta,
+        });
+      },
+    });
   }
 }
