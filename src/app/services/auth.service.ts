@@ -18,4 +18,10 @@ export class AuthService {
     );
   }
 
+  public refresh(loginDTO: LoginDTO): Observable<any> {
+    return this.http.post<any>(
+      `${environment.apiUrl}/auth/refresh`,
+      loginDTO
+    );
+  }
 }

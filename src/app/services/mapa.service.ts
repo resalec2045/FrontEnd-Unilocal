@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemNegocioDTO } from '../dto/ItemNegocioDTO';
 import { environment } from '../env/environment';
+import { EstablecimientoDTO } from '../dto/EstablecimientoDTO';
 
 declare var mapboxgl: any;
 
@@ -40,6 +41,7 @@ export class MapaService {
       );
     }
   }
+
   public agregarMarcador(): Observable<any> {
     const mapaGlobal = this.mapa;
     const marcadores = this.marcadores;

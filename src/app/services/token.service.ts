@@ -50,7 +50,16 @@ export class TokenService {
       });
     }
     window.sessionStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'])
+  }
+
+  public getRole(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload();
+      return values.rol;
+    }
+    return "";
   }
 
   public decodePayload(): any {
@@ -66,4 +75,13 @@ export class TokenService {
     });
     return headers;
   }
+
+  public getEmail(): string {
+    const token = this.getToken();
+    if (token) {
+    const values = this.decodePayload();
+    return values.sub;
+    }
+    return "";
+    }
 }

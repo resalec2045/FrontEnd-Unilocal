@@ -39,7 +39,6 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mapaService.crearMapa();
     this.negociosService.listar().subscribe({
       next: (response) => {
         this.negocios = response;
@@ -48,6 +47,8 @@ export class InicioComponent implements OnInit {
         console.log(error);
       },
     });
+    console.log(this.negocios);
+    this.mapaService.crearMapa();
     if (this.tokenService.isLogged()) {
       this.listarFavoritos();
     }
