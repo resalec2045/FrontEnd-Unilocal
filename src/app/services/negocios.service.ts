@@ -37,11 +37,77 @@ export class NegociosService {
     );
   }
 
-  public crear(negocioNuevo: RegistroNegocioDTO) {}
+  public obtenerEstablecimientoAleatorio(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/obtener-establecimiento-aleatorio`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
 
-  public eliminar(codigo: string) {}
+  public obtenerMejoresEstablecimientos(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/listar-mejores-establecimientos`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
 
-  public buscar(terminoBusqueda: string): ItemNegocioDTO[] {
-    return [];
+  public listarFavoritosComunidad(pagina: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/listar-establecimientos-por-calificacion/${pagina}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public listarFavoritosCliente(codigoCliente: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/listar-establecimientos-por-cliente/${codigoCliente}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public crearEstablecimiento(negocioNuevo: RegistroNegocioDTO) {
+    return this.http.post<any>(
+      `${environment.apiUrl}/establecimiento/crear-establecimiento`,
+      negocioNuevo,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public listarEstablecimientosPorCategoria(codigoCategoria: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/listar-establecimientos-por-categoria/${codigoCategoria}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public actualizarEstablecimiento(establecimiento: EstablecimientoDTO): Observable<any> {
+    return this.http.put<any>(
+      `${environment.apiUrl}/establecimiento/actualizar-establecimiento`,
+      establecimiento,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public eliminarEstablecimiento(codigoEstablecimiento: string): Observable<any> {
+    return this.http.delete<any>(
+      `${environment.apiUrl}/establecimiento/eliminar-establecimiento/${codigoEstablecimiento}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
   }
 }

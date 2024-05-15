@@ -1,7 +1,10 @@
 <div class="card">
   <div class="card-body">
     <div class="card-img">
-      <img src="assets/images/image4.jpeg" alt="Negocio" />
+      <img
+        src="{{ establecimientoDTO!.imagenes[0] }}"
+        alt="{{ establecimientoDTO?.nombre }}"
+      />
     </div>
     <div class="card-text">
       <div class="card-title">

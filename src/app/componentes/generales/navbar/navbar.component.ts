@@ -49,4 +49,12 @@ export class NavBarComponent implements AfterViewInit {
   navigateToHome() {
     this.router.navigate(['/inicio']);
   }
+
+  navigateToFavorites() {
+    this.router.navigate(['/favoritos']);
+  }
+
+  navigateToMyPublications() {
+    this.router.navigate(['/mis-publicaciones']);
+  }
 }

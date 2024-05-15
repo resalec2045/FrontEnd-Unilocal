@@ -25,6 +25,8 @@ import { ClienteService } from '../../services/cliente.service';
 })
 export class InicioComponent implements OnInit {
   negocios: EstablecimientoDTO[] | undefined;
+  establecimientoAleatorio: EstablecimientoDTO | undefined;
+  mejoresEstablecimientos: EstablecimientoDTO[] | undefined;
   favoritos: string[];
 
   constructor(
@@ -39,6 +41,13 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mapaService.crearMapa();
+    this.obtenerEstablecimientoAleatorio();
+    this.obtenerMejoresEstablecimientos();
+    this.listarNegocios();
+  }
+
+  public listarNegocios() {
     this.negociosService.listar().subscribe({
       next: (response) => {
         this.negocios = response;
@@ -60,6 +69,28 @@ export class InicioComponent implements OnInit {
     }
   }
 
+  public obtenerEstablecimientoAleatorio() {
+    this.negociosService.obtenerEstablecimientoAleatorio().subscribe({
+      next: (response) => {
+        this.establecimientoAleatorio = response;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  public obtenerMejoresEstablecimientos() {
+    this.negociosService.obtenerMejoresEstablecimientos().subscribe({
+      next: (response) => {
+        this.mejoresEstablecimientos = response;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
   public listarFavoritos() {
     const { id } = this.tokenService.decodePayload();
     this.clienteService.listarFavoritos(id).subscribe({
@@ -75,4 +106,9 @@ export class InicioComponent implements OnInit {
   public esFavorito(codigo: string): boolean {
     return this.favoritos.includes(codigo);
   }
+
+  public generarRango(numero: number): number[] {
+    return Array.from({ length: numero }, (_, i) => i + 1);
+  }
+
 }

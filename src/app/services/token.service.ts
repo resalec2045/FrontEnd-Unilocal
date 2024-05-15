@@ -64,7 +64,7 @@ export class TokenService {
 
   public decodePayload(): any {
     const payload = this.authToken!.split('.')[1];
-    const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');
+    const payloadDecoded = payload !== undefined ? Buffer.from(payload, 'base64').toString('ascii') : '';
     const values = JSON.parse(payloadDecoded);
     return values;
   }
