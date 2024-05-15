@@ -1,0 +1,9 @@
+.favorite_link {
+    background-image: linear-gradient(
+      to right,
+      var(--title-color),
+      var(--title-color) 50%,
+      black 50%
+    );
+  }
+  
