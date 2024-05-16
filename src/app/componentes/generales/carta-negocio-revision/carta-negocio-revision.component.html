@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body">
+      <div class="card-img">
+        <img
+          src="{{ establecimiento!.imagenes[0] }}"
+          alt="{{ establecimiento?.nombre }}"
+        />
+      </div>
+      <div class="card-text">
+        <div class="card-title">
+          <h2 class="text-center">{{ establecimiento?.nombre }}</h2>
+          <div class="product_information-estado flex-center {{establecimiento?.estado}}">
+            {{establecimiento?.estado}}
+          </div>
+        </div>
+        <div class="card-content">
+          <p>
+            {{ establecimiento?.descripcion }}
+          </p>
+        </div>
+        <div class="card-text_button">
+          <button class="submit-button" (click)="navigateToDetalleNegocio()">
+            Visitar
+          </button>
+          <i class='bx bx-trash edit_button' (click)="eliminarPublicacion(establecimiento!._id)"></i>
+          <i class='bx bxs-edit-alt edit_button' (click)="editarPublicacion(establecimiento!._id)"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  

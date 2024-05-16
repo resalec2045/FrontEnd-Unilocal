@@ -4,27 +4,16 @@
     <section class="section" id="product">
       <div class="product_container container grid">
         <ul class="nav justify-content-center pb-3 mb-3">
-          <li class="nav-item">
-            <a
-              class="px-2 favorite_link"
-              (click)="cambiarSelectPage('Pendientes')"
-              >Pendientes</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="px-2 favorite_link"
-              (click)="cambiarSelectPage('Revisadas')"
-              >Revisadas</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="px-2 favorite_link"
-              (click)="cambiarSelectPage('Aprobadas')"
-              >Aprobadas</a
-            >
-          </li>
+
+          <h1 class="mb-3">Mis publicaciones</h1>
+
+          <div >
+            <app-carta-negocio-revision
+              *ngFor="let establecimiento of publicaciones; let i = index"
+              [establecimiento]="establecimiento"
+            ></app-carta-negocio-revision>
+          </div>
+  
         </ul>
       </div>
     </section>

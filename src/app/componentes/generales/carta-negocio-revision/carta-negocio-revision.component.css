@@ -1,0 +1,72 @@
+.card {
+  border-radius: 15px;
+}
+.card-text {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+}
+.card-body {
+  display: flex;
+  gap: 10px;
+  padding: var(--mb-2);
+}
+.card-img {
+  margin-right: 10px;
+}
+.card-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--title-color);
+}
+.card-title_corazon {
+  color: var(--title-color);
+  font-size: 2rem;
+}
+.card-text_button {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.edit_button {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: var(--title-color);
+  border-color: var(--title-color);
+  color: #e9e9e9;
+  border-radius: 100%;
+  padding: 10px;
+}
+
+.product_information-estado {
+  display: flex;
+  height: calc(1.375rem + 0.5vw);
+  border-radius: 30px;
+  background-color: var(--title-color);
+  width: 150px;
+  color: white;
+}
+
+.APROBADA {
+  background-color: #819c5f;
+}
+.RECHAZADA {
+  background-color: #c74b4b;
+}
+.PENDIENTE {
+  background-color: #f0b429;
+}

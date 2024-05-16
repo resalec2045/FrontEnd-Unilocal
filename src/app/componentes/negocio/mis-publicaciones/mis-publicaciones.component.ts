@@ -5,6 +5,8 @@ import { CartaNegocioComponent } from '../../generales/carta-negocio/carta-negoc
 import { NgFor, NgIf } from '@angular/common';
 import { NegociosService } from '../../../services/negocios.service';
 import { TokenService } from '../../../services/token.service';
+import { RevisionEstablecimientoDTO } from '../../../dto/RevisionEstablecimientoDTO';
+import { CartaNegocioRevisionComponent } from '../../generales/carta-negocio-revision/carta-negocio-revision.component';
 
 @Component({
   selector: 'app-mis-publicaciones',
@@ -12,7 +14,7 @@ import { TokenService } from '../../../services/token.service';
   imports: [
     NavBarComponent,
     FooterComponent,
-    CartaNegocioComponent,
+    CartaNegocioRevisionComponent,
     NgIf,
     NgFor,
   ],
@@ -21,17 +23,29 @@ import { TokenService } from '../../../services/token.service';
 })
 export class MisPublicacionesComponent {
 
-  selectPage!: string;
+  publicaciones: RevisionEstablecimientoDTO[] | undefined;
 
   constructor(
     private negociosService: NegociosService,
     private tokenService: TokenService
   ) {
-    this.selectPage = 'Pendientes';
+    this.publicaciones = [];
+  }
+
+  public ngOnInit() {
+    this.obtenerMisPublicaciones()
   }
   
-  public cambiarSelectPage(page: string) {
-    this.selectPage = page;
+  public obtenerMisPublicaciones() {
+    const {id} = this.tokenService.decodePayload();
+    this.negociosService.listarEstablecimientosRevisionesCliente(id).subscribe({
+      next: (response) => {
+        this.publicaciones = response;
+      },
+      error: (error) => {
+        console.log(error);
+      }, 
+    });
   }
 
 }
