@@ -1,0 +1,32 @@
+<div class="app">
+  <main>
+    <navbar [type]="'header'"></navbar>
+    <section class="section" id="product">
+      <div class="product_container container grid">
+        <ul class="nav justify-content-center pb-3 mb-3">
+          <li class="nav-item">
+            <a
+              class="px-2 favorite_link"
+              (click)="cambiarSelectPage('Pendientes')"
+              >Pendientes</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="px-2 favorite_link"
+              (click)="cambiarSelectPage('Revisadas')"
+              >Revisadas</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="px-2 favorite_link"
+              (click)="cambiarSelectPage('Aprobadas')"
+              >Aprobadas</a
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,11 @@
+@if (isFavorite) {
+<i
+  class="bx bxs-heart card-title_corazon flex-center"
+  (click)="eliminarLugarFavorito()"
+></i>
+} @else {
+<i
+  class="bx bx-heart card-title_corazon flex-center"
+  (click)="agregarFavorito()"
+></i>
+}

@@ -4,19 +4,26 @@ import { NegociosService } from '../../../services/negocios.service';
 import { EstablecimientoDTO } from '../../../dto/EstablecimientoDTO';
 import { NavBarComponent } from '../../generales/navbar/navbar.component';
 import { ComentariosService } from '../../../services/comentarios.service';
-import { ComentarioDTO } from '../../../dto/ComentarioDTO';
 import { CommonModule } from '@angular/common';
 import { Dias } from '../../../enum/Dias';
 import { FooterComponent } from '../../generales/footer/footer/footer.component';
 import { RegistroComentarioDTO } from '../../../dto/RegistroComentarioDTO';
 import { ItemComentarioDTO } from '../../../dto/ItemComentarioDTO';
 import { TokenService } from '../../../services/token.service';
+import { AgregarFavoritosComponent } from '../../generales/agregar-favoritos/agregar-favoritos.component';
 import Swal from 'sweetalert2';
+import { ClienteService } from '../../../services/cliente.service';
 
 @Component({
   selector: 'app-detalle-negocio',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, CommonModule, FooterComponent],
+  imports: [
+    RouterOutlet,
+    NavBarComponent,
+    CommonModule,
+    FooterComponent,
+    AgregarFavoritosComponent,
+  ],
   templateUrl: './detalle-negocio.component.html',
   styleUrl: './detalle-negocio.component.css',
 })
@@ -24,21 +31,31 @@ export class DetalleNegocioComponent {
   establecimientoDTO: EstablecimientoDTO | undefined;
   comentariosDTO: ItemComentarioDTO[] | undefined;
   codigoEstablecimiento: string = '';
+  isFavorite: boolean = false;
   isDueno: boolean = false;
   isLogged = false;
+  favoritos: string[];
 
   constructor(
     private route: ActivatedRoute,
     private negociosService: NegociosService,
+    private clienteService: ClienteService,
     private comentariosService: ComentariosService,
     private tokenService: TokenService
   ) {
+    this.favoritos = [];
     this.route.params.subscribe((params) => {
       this.codigoEstablecimiento = params['codigo'];
       this.isLogged = this.tokenService.isLogged();
       this.obtenerNegocio();
       this.obtenerComentarios();
     });
+  }
+
+  ngOnInit(): void {
+    if (this.tokenService.isLogged()) {
+      this.listarFavoritos();
+    }
   }
 
   // Peticiones
@@ -81,24 +98,61 @@ export class DetalleNegocioComponent {
   public crearComentario(event: any, comentario: string, valoracion: number) {
     event.preventDefault();
     const { id } = this.tokenService.decodePayload();
-    this.comentariosService.crearComentario(
-      new RegistroComentarioDTO(
-        id,
-        this.establecimientoDTO?.codigo,
-        `${new Date('YYYY-MM-DD')}`,
-        comentario,
-        valoracion,
-        ''
+    this.comentariosService
+      .crearComentario(
+        new RegistroComentarioDTO(
+          id,
+          this.establecimientoDTO?.codigo,
+          `${new Date('YYYY-MM-DD')}`,
+          comentario,
+          valoracion,
+          ''
+        )
       )
-    );
+      .subscribe({
+        next: (response) => {
+          this.obtenerComentarios();
+          Swal.fire({
+            icon: 'success',
+            title: 'Exito',
+            text: response.respuesta,
+          });
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.respuesta,
+          });
+        },
+      });
   }
+
   public responderComentario(
     event: any,
     idComentario: string,
     comentario: string
   ) {
     event.preventDefault();
-    this.comentariosService.responderComentario(idComentario, comentario);
+    this.comentariosService
+      .responderComentario(idComentario, comentario)
+      .subscribe({
+        next: (response) => {
+          this.obtenerComentarios();
+          Swal.fire({
+            icon: 'success',
+            title: 'Exito',
+            text: response.respuesta,
+          });
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.respuesta,
+          });
+        },
+      });
   }
 
   public generarRango(numero: number): number[] {
@@ -127,12 +181,54 @@ export class DetalleNegocioComponent {
       return 'Cerrado';
     }
   }
-  
+
   public userIsDueno() {
     const { id } = this.tokenService.decodePayload();
 
     id === this.establecimientoDTO?.codigoUsuario
       ? (this.isDueno = true)
       : (this.isDueno = false);
+  }
+
+  public listarFavoritos() {
+    const { id } = this.tokenService.decodePayload();
+    this.clienteService.listarFavoritos(id).subscribe({
+      next: (response) => {
+        this.favoritos = response.respuesta;
+        this.isFavorite = this.esFavorito(this.codigoEstablecimiento);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  public esFavorito(codigo: string): boolean {
+    return this.favoritos.includes(codigo);
+  }
+
+  public isDuenoComentario(idUsuario: string): boolean {
+    const { id } = this.tokenService.decodePayload();
+    return id === idUsuario;
+  }
+
+  public eliminarComentario(idComentario: string) {
+    this.comentariosService.eliminarComentario(idComentario).subscribe({
+      next: (response) => {
+        this.obtenerComentarios();
+        Swal.fire({
+          icon: 'success',
+          title: 'Exito',
+          text: response.respuesta,
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error.respuesta,
+        });
+      },
+    });
   }
 }

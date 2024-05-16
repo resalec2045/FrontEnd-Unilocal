@@ -37,7 +37,7 @@ export class CrearNegocioComponent implements OnInit {
 
   public crearNegocio() {
     this.registroNegocioDTO.horarios = this.horarios;
-    this.negociosService.crear(this.registroNegocioDTO);
+    this.negociosService.crearEstablecimiento(this.registroNegocioDTO);
     console.log(this.registroNegocioDTO);
   }
 

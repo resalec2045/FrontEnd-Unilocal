@@ -12,6 +12,16 @@ export class AuthService {
   constructor(private tokenService: TokenService, private http: HttpClient) {}
 
   public login(loginDTO: LoginDTO): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/auth/login-cliente`, loginDTO);
+    return this.http.post<any>(
+      `${environment.apiUrl}/auth/login-cliente`,
+      loginDTO
+    );
+  }
+
+  public refresh(loginDTO: LoginDTO): Observable<any> {
+    return this.http.post<any>(
+      `${environment.apiUrl}/auth/refresh`,
+      loginDTO
+    );
   }
 }

@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  width: 100%;
 }
 .card-body {
   display: flex;
@@ -12,10 +13,11 @@
   padding: var(--mb-2);
 }
 .card-img {
-  width: 50% !important;
   margin-right: 10px;
 }
 .card-img img {
+  width: 100%;
+  height: 100%;
   border-radius: 15px;
 }
 .card-title {
