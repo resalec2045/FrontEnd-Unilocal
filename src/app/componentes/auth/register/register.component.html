@@ -16,7 +16,18 @@
             placeholder="Nombre"
             name="name"
             class="input"
-            [(ngModel)]="registerDTO.name"
+            [(ngModel)]="registerDTO.nombre"
+            required="true"
+          />
+        </div>
+        <div class="group-input">
+          <i class='bx bx-cool input-icon'></i>
+          <input
+            type="text"
+            placeholder="Pronombre"
+            name="nickname"
+            class="input"
+            [(ngModel)]="registerDTO.nickname"
             required="true"
           />
         </div>
@@ -39,7 +50,7 @@
             name="password"
             placeholder="Contraseña"
             class="input"
-            [(ngModel)]="registerDTO.password"
+            [(ngModel)]="registerDTO.contrasena"
             required="true"
           />
         </div>

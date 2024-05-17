@@ -104,10 +104,20 @@ export class NegociosService {
 
   public eliminarEstablecimiento(codigoEstablecimiento: string): Observable<any> {
     return this.http.delete<any>(
-      `${environment.apiUrl}/establecimiento/eliminar-establecimiento/${codigoEstablecimiento}`,
+      `${environment.apiUrl}/establecimiento/${codigoEstablecimiento}`,
       {
         headers: this.tokenService.getRequestHeaders(),
       }
     );
   }
+
+  public listarEstablecimientosRevisionesCliente(codigoCliente: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/listar-establecimientos-por-revisiones-cliente/${codigoCliente}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
 }

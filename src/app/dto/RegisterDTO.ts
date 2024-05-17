@@ -1,7 +1,10 @@
 export class RegisterDTO {
     constructor(
-        public name: string = '',
+        public nombre: string = '',
+        public nickname: string = '',
         public email: string = '',
-        public password: string = ''
+        public contrasena: string = '',
+        public foto: string = '',
+        public ciudadResidencia: string = '',
     ) {}
 }
