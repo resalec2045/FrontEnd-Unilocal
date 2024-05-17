@@ -36,6 +36,10 @@ export class FavoritosComponent {
   }
 
   ngOnInit() {
+    this.listarFavoritos();
+  }
+
+  public listarFavoritos() {
     this.listarFavoritosCliente();
     this.listarFavoritosComunidad();
   }
