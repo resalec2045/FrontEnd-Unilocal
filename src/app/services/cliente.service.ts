@@ -60,7 +60,7 @@ export class ClienteService {
     formData.append('nickName', clienteActualizadoDTO.nickName);
     formData.append('email', clienteActualizadoDTO.email);
     formData.append('ciudadResidencia', clienteActualizadoDTO.ciudadResidencia);
-    formData.append('fotoActualizada', clienteActualizadoDTO.fotoActualizada);
+    formData.append('foto', clienteActualizadoDTO.fotoActualizada);
 
     return this.http.put<any>(
       `${environment.apiUrl}/clientes/actualizar`,
