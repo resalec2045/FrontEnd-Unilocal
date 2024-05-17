@@ -19,7 +19,7 @@
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background-color: brown;
+    background-color: var(--title-color);
 }
 
 
@@ -44,23 +44,31 @@
     align-items: center;
     margin-left: 310px; /* Ajusta el margen según necesites */
     margin-top: -40px;
+    cursor: pointer;
 }
+.circle-camara {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--title-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Use absolute positioning to place it over the profile picture */
+    left: 1200px;
+    bottom: 430px;
+    cursor: pointer;
+}
+
+.circle-camara img {
+    width: 35px; /* Adjust the size of the icon to fit within the circle */
+    height: 35px;
+    object-fit: contain; /* Ensure the image fits within the container without distortion */
+}
+
+
 
 .circle img {
     width: 20px; /* Ajusta el tamaño del ícono según necesites */
     height: 20px;
-}
-
-
-.edit-icon {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 30px;
-    height: 30px;
-    background-color: #fff; /* Puedes cambiar el color de fondo del ícono de cámara aquí */
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

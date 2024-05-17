@@ -4,17 +4,17 @@
         </navbar>
         <section class="section">
             <div class="card_container container grid">
-                <h1 class="flex-center">
+                <h1 class="flex-center" style="color: var(--title-color);">
                     Ajustes
                 </h1>
-                <div class="flex-center">
+                <div class="flex-center" style="color: var(--title-color);">
                     <div class="card_information">
                         <span>
                             Nombre:
                         </span>
                         <div class="editable-field">
-                            <input type="text">
-                            <div class="circle">
+                            <input type="text" [disabled]="!isFieldEnabledNombre" [(ngModel)]="clienteActualizadoDTO.nombre">
+                            <div class="circle" (click)="habilitarEdicionNombre()">
                                 <img src="assets\svg\lapiz.svg" alt="Ícono">
                             </div>
                         </div>
@@ -22,8 +22,8 @@
                             Apodo:
                         </span>
                         <div class="editable-field">
-                            <input type="text">
-                            <div class="circle">
+                            <input type="text" [disabled]="!isFieldEnabledApodo" [(ngModel)]="clienteActualizadoDTO.nickName" >
+                            <div class="circle" (click)="habilitarEdicionApodo()">
                                 <img src="assets\svg\lapiz.svg" alt="Ícono">
                             </div>
                         </div>
@@ -31,17 +31,17 @@
                             Correo:
                         </span>
                         <div class="editable-field">
-                            <input type="email">
-                            <div class="circle">
+                            <input type="email" [disabled]="!isFieldEnabledCorreo" [(ngModel)]="clienteActualizadoDTO.email">
+                            <div class="circle" (click)="habilitarEdicionCorreo()">
                                 <img src="assets\svg\lapiz.svg" alt="Ícono">
                             </div>
                         </div>
                         <span>
-                            contraseña:
+                            Ciudad:
                         </span>
                         <div class="editable-field">
-                            <input type="password">
-                            <div class="circle">
+                            <input type="text" [disabled]="!isFieldEnabledCiudad" [(ngModel)]="clienteActualizadoDTO.ciudadResidencia">
+                            <div class="circle" (click)="habilitarEdicionCiudad()">
                                 <img src="assets\svg\lapiz.svg" alt="Ícono">
                             </div>
                         </div>
@@ -49,16 +49,17 @@
                     <div class="card_image">
                         <div class="image">
                             <div class="profile-picture">
-                                <!-- <img src="assets\icons\icontao.jpg" alt="Imagen de perfil"> -->
+                                <img class="image" src={{clienteActualizadoDTO.foto}} alt="Imagen de perfil">
                             </div>
                         </div>
-                        <div class="circle">
+                        <div class="circle-camara">
                             <img src="assets\svg\camara.svg" alt="Ícono">
+                            <input type="file" [(ngModel)]="clienteActualizadoDTO.fotoActualizada">
                         </div>
                     </div>
                 </div>
                 <div class="card_buttons flex-center">
-                    <button class="submit-button">Aceptar cambios</button>
+                    <button class="submit-button" (click)="guardarCambios()">Aceptar cambios</button>
                     <button class="submit-button">Eliminar cuenta</button>
                 </div>
 
