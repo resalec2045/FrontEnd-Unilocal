@@ -101,6 +101,15 @@ export class NegociosService {
     );
   }
 
+  public listarEstablecimientosPorCodigo(codigo: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/establecimiento/listar-establecimientos-por-codigo/${codigo}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
   public actualizarEstablecimiento(establecimiento: EstablecimientoDTO): Observable<any> {
     return this.http.put<any>(
       `${environment.apiUrl}/establecimiento/actualizar-establecimiento`,

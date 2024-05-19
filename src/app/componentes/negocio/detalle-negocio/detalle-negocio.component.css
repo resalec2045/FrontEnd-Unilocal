@@ -114,3 +114,102 @@
   border-radius: 100%;
   padding: 10px;
 }
+
+/* Estilo de botones */
+.btn-rechazar, .btn-aprobar {
+  background-color: #9C27B0; /* Morado */
+  color: #fff;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 50px; /* Botones redondos */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 20px;
+}
+
+.btn-rechazar:hover {
+  background-color: #82248B; /* Morado más oscuro al pasar el cursor */
+}
+
+.btn-aprobar:hover {
+  background-color: #7CB342; /* Verde al pasar el cursor */
+}
+
+/* Iconos */
+.fa-times, .fa-check {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+
+
+/* Estilo de la tarjeta */
+.card {
+  width: 300px; /* Ajusta el ancho según tus necesidades */
+  margin: 20px auto; /* Centra la tarjeta horizontalmente */
+  background-color: #fff; /* Color de fondo blanco */
+  border-radius: 10px; /* Esquinas redondas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.card-header {
+  background-color: #9C27B0; /* Morado */
+  padding: 10px;
+  border-radius: 10px 10px 0 0; /* Esquinas redondas superiores */
+}
+
+.card-date {
+  color: #fff;
+  font-weight: bold;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-name {
+  margin-bottom: 10px;
+}
+
+.card-description {
+  line-height: 1.5; /* Ajusta el espacio entre líneas del texto */
+}
+
+.card-container {
+  display: flex; /* Enable flexbox layout */
+  margin: 0 10px; /* Add margin between cards */
+  flex-shrink: 0; /* Prevent cards from shrinking */
+}
+
+.cards-container {
+  display: flex-inline; /* Mostrar elementos en línea (horizontalmente) */
+  overflow-x: auto; /* Habilitar scroll horizontal */
+  width: 100%; /* Ajustar el ancho según sea necesario */
+}
+
+.containerButtons {
+  text-align: center;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}

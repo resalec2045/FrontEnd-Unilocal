@@ -45,4 +45,13 @@ export class ClienteService {
       }
     );
   }
+
+  public obtenerClientePorCodigo(codigoCliente: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/clientes/obtener/${codigoCliente}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
 }

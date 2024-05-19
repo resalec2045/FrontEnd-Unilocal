@@ -13,17 +13,17 @@
           </ul>
   
           <div *ngIf="selectPage === 'pendientes'">
-            <app-carta-negocio
+            <app-carta-negocio-moderador
               *ngFor="let establecimiento of pendientes; let i = index"
               [establecimientoDTO]="establecimiento"
-            ></app-carta-negocio>
+            ></app-carta-negocio-moderador>
           </div>
   
           <div *ngIf="selectPage === 'revisados'">
-            <app-carta-negocio
+            <app-carta-negocio-moderador
               *ngFor="let establecimiento of revisados; let i = index"
               [establecimientoDTO]="establecimiento"
-            ></app-carta-negocio>
+            ></app-carta-negocio-moderador>
           </div>
         </div>
       </section>

@@ -22,6 +22,6 @@ export const routes: Routes = [
   { path: 'busqueda/:texto', component: BusquedaComponent },
   { path: 'crear-negocio', component: CrearNegocioComponent },
   { path: 'negocios-moderador', component: NegociosModeradorComponent },
-  { path: 'revisiones-negocio-moderador', component: RevisionesNegocioModeradorComponent },
+  { path: 'revisiones-negocio-moderador/:codigo', component: RevisionesNegocioModeradorComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'auth' },
 ];

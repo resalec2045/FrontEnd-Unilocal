@@ -1,1 +1,108 @@
-<p>revisiones-negocio-moderador works!</p>
+<div class="app">
+    <main>
+      <navbar [type]="'header'"></navbar>
+      <section class="section" id="product">
+        <div class="product_container container grid">
+          <div class="product_information grid">
+            <div class="product_information-img flex-center">
+              <div class="information__img-box flex-center">
+                <div
+                  id="carouselExampleAutoplaying"
+                  class="carousel slide"
+                  data-bs-ride="carousel"
+                >
+                  <div class="carousel-inner">
+                    @for (imagen of establecimientoDTO?.imagenes; track $index) {
+                    <div class="carousel-item active">
+                      <img
+                        src="{{ imagen }}"
+                        class="d-block w-100"
+                        alt="{{ imagen + $index }}"
+                      />
+                    </div>
+                    }
+                  </div>
+                  <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev"
+                  >
+                    <span
+                      class="carousel-control-prev-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next"
+                  >
+                    <span
+                      class="carousel-control-next-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="product_information-description">
+              <div class="product_information-title">
+                <h1 class="product-name">{{ establecimientoDTO?.nombre }}</h1>
+                <div class="flex-center">
+                </div>
+              </div>
+              <hr />
+              <p>{{ establecimientoDTO!.descripcion }}</p>
+              <hr />
+              <p>Horarios:</p>
+              @for (horarios of establecimientoDTO?.horarios; track $index) {
+              <p>
+                {{ horarios.dia }}: {{ horarios.horaApertura }} -
+                {{ horarios.horaCierre }}
+              </p>
+              }
+              <p>Categoría: {{ establecimientoDTO?.categoria }}</p>
+              @for ( telefonos of establecimientoDTO?.telefonos; track $index) {
+              <p>Teléfono {{ $index + 1 }}: {{ telefonos }}</p>
+              }
+              <div class="product_information-calificaciones">
+                <p class="comentario_information-name">Calificaciones:</p>
+                <div class="">
+                  @if (establecimientoDTO?.promedio != undefined) { @for (item of
+                  generarRango(establecimientoDTO!.promedio); track $index) {
+                  <i class="bx bxs-star star-active"></i>
+                  } }
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </section>
+      <div class="row">
+      @for (revision of revisiones; track $index) {
+        <div class="column">
+        <div class="card">
+          <div class="card-header">
+              <span class="card-date">{{revision.fecha}}</span>
+          </div>
+          <div class="card-body">
+              <h3 class="card-name">{{obtenerNombrePorCodigo(revision.codigoModerador)}}</h3>
+              <p class="card-description">{{revision.descripcion}}</p>
+          </div>
+        </div>
+      </div>
+        }
+      </div>
+      <div class="containerButtons">
+        <button class="btn-rechazar" (click)="enviarRevision('rechazado')">Rechazar<i class="fas fa-times"></i></button>
+        <button class="btn-aprobar" (click)="enviarRevision('aprobado')">Aprobar <i class="fas fa-check"></i></button>
+      </div>
+      <app-footer></app-footer>
+    </main>
+  </div>
+  

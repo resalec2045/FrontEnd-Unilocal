@@ -5,6 +5,7 @@ export class RevisionEstablecimientoDTO {
         public nombre: string = '',
         public descripcion: string = '',
         public codigoUsuario: string = '',
+        public codigoEstablecimiento: string = '',
         public imagenes: string[] = [],
         public estado: string = '',
     ) { }

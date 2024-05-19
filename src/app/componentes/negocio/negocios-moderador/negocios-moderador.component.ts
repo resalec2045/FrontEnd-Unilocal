@@ -6,32 +6,40 @@ import { TokenService } from '../../../services/token.service';
 import { CartaNegocioComponent } from "../../generales/carta-negocio/carta-negocio.component";
 import { NgFor, NgIf } from '@angular/common';
 import { FooterComponent } from '../../generales/footer/footer/footer.component';
+import { CartaNegocioModeradorComponent } from "../../generales/carta-negocio-moderador/carta-negocio-moderador.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-negocios-moderador',
     standalone: true,
-    imports: [
-      NavBarComponent,
-      FooterComponent,
-      CartaNegocioComponent,
-      NgIf,
-      NgFor,
-    ],
     templateUrl: './negocios-moderador.component.html',
     styleUrl: '../favoritos/favoritos.component.css',
+    imports: [
+        NavBarComponent,
+        FooterComponent,
+        CartaNegocioComponent,
+        NgIf,
+        NgFor,
+        CartaNegocioModeradorComponent
+    ]
 })
 export class NegociosModeradorComponent {
   selectPage!: string;
   pendientes: EstablecimientoDTO[];
   revisados: EstablecimientoDTO[];
+  codigoEstablecimiento: string = '';
 
   constructor(
+    private route: ActivatedRoute,
     private negociosService: NegociosService,
     private tokenService: TokenService
   ) {
     this.pendientes = [];
     this.revisados = [];
     this.selectPage = 'pendientes';
+    this.route.params.subscribe((params) => {
+      this.codigoEstablecimiento = params['codigo'];
+    });
   }
 
   ngOnInit() {
