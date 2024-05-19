@@ -152,7 +152,7 @@
     <h1>Mapa</h1>
     <hr />
     <div id="mapa"></div>
-    <form role="search" (submit)="iraBusqueda(textoBusqueda.value)">
+    <form role="search" >
       <div class="input-group">
         <input
           #textoBusqueda
@@ -161,7 +161,7 @@
           placeholder="Buscar..."
           aria-label="Search"
         />
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" (click)="buscar(textoBusqueda.value)">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
         <select class="btn btn-primary search_button" id="">

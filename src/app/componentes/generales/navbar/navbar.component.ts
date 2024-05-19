@@ -57,4 +57,8 @@ export class NavBarComponent implements AfterViewInit {
   navigateToMyPublications() {
     this.router.navigate(['/mis-publicaciones']);
   }
+
+  navigateToLugaresPorRevisar() {
+    this.router.navigate(['/negocios-moderador']);
+  }
 }

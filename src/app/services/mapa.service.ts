@@ -47,6 +47,9 @@ export class MapaService {
     const marcadores = this.marcadores;
     return new Observable<any>((observer) => {
       mapaGlobal.on('click', function (e: any) {
+        console.log(e.lngLat.lng)
+        console.log(e.lngLat.lng)
+        console.log('Longitud y latitud cuando se da click. De esta manera se puede guardar')
         marcadores.forEach((marcador) => marcador.remove());
         const marcador = new mapboxgl.Marker()
           .setLngLat([e.lngLat.lng, e.lngLat.lat])
@@ -59,6 +62,7 @@ export class MapaService {
 
   public pintarMarcadores(negocios: ItemNegocioDTO[]) {
     if (typeof mapboxgl === 'object') {
+      console.log('Longitud y latitud específica cuando se carga la vista')
       negocios.forEach((negocio) => {
         new mapboxgl.Marker()
           .setLngLat([negocio.ubicacion.longitud, negocio.ubicacion.latitud])

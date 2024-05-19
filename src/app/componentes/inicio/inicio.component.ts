@@ -10,6 +10,7 @@ import { FooterComponent } from '../generales/footer/footer/footer.component';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 import { ClienteService } from '../../services/cliente.service';
+import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
 
 @Component({
   selector: 'app-inicio',
@@ -24,10 +25,13 @@ import { ClienteService } from '../../services/cliente.service';
   styleUrl: './inicio.component.css',
 })
 export class InicioComponent implements OnInit {
-  negocios: EstablecimientoDTO[] | undefined;
+  negocios: EstablecimientoDTO[];
+  todosNegocios: EstablecimientoDTO[];
   establecimientoAleatorio: EstablecimientoDTO | undefined;
   mejoresEstablecimientos: EstablecimientoDTO[] | undefined;
   favoritos: string[];
+  negociosFiltrados: EstablecimientoDTO[] | undefined = [];
+  valorBusqueda: string = '';
 
   constructor(
     private mapaService: MapaService,
@@ -38,6 +42,7 @@ export class InicioComponent implements OnInit {
   ) {
     this.negocios = [];
     this.favoritos = [];
+    this.todosNegocios = [];
   }
 
   ngOnInit(): void {
@@ -51,23 +56,30 @@ export class InicioComponent implements OnInit {
     this.negociosService.listar().subscribe({
       next: (response) => {
         this.negocios = response;
+        this.todosNegocios = response;
       },
       error: (error) => {
         console.log(error);
       },
     });
-    console.log(this.negocios);
     this.mapaService.crearMapa();
     if (this.tokenService.isLogged()) {
       this.listarFavoritos();
     }
   }
 
-  public iraBusqueda(valor: string) {
-    if (valor) {
-      this.router.navigate(['/busqueda', valor]);
-    }
+  public buscar(valor: string): void {
+    this.negocios = [];
+    this.negociosFiltrados = [];
+    this.negociosFiltrados = this.todosNegocios.filter((negocio: EstablecimientoDTO) => {
+      const nombreLowerCase = negocio.nombre.toLowerCase();
+      const descripcionLowerCase = negocio.descripcion.toLowerCase();
+      return nombreLowerCase.includes(valor.toLowerCase()) || descripcionLowerCase.includes(valor.toLowerCase());
+    });
+    console.log(this.negociosFiltrados);
+    this.negocios = this.negociosFiltrados;
   }
+  
 
   public obtenerEstablecimientoAleatorio() {
     this.negociosService.obtenerEstablecimientoAleatorio().subscribe({

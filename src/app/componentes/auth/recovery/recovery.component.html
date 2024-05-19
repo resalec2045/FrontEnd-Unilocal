@@ -3,10 +3,11 @@
     <div class="auth__box grid">
       <img class="auth__logo" src="{{ logo }}" alt="logo" />
       <h1>Recuperar contraseña</h1>
-      <form class="form grid" #f="ngForm" (ngSubmit)="recoverySubmit()">
+      <form class="form grid" #f="ngForm" (ngSubmit)="recoverySubmit(email.value)">
         <div class="group-input">
           <i class="bx bxs-user-circle input-icon"></i>
           <input
+            #email
             type="email"
             name="email"
             placeholder="Email"

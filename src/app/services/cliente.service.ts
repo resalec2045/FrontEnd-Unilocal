@@ -3,6 +3,7 @@ import { TokenService } from './token.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../env/environment';
+import { EmailDTO } from '../dto/EmailDTO';
 
 @Injectable({
   providedIn: 'root',
