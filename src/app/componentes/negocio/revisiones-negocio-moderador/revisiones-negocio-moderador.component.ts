@@ -96,7 +96,7 @@ export class RevisionesNegocioModeradorComponent {
     this.revisionDTO.descripcion = 'El establecimiento fue ' + opcion;
     this.revisionDTO.estado = opcion === "aprobado" ? "APROBADA" : "RECHAZADA";
     this.revisionDTO.fecha = this.obtenerFecha();
-      this.revisionesServices.enviarRevision(this.revisionDTO).subscribe({
+      this.revisionesServices.actualizarRevision(this.revisionDTO).subscribe({
       next: (response) => {
         window.sessionStorage.clear();
         Swal.fire({

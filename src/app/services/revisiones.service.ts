@@ -17,9 +17,9 @@ export class RevisionesServices {
     );
   }
 
-  public enviarRevision(revisionDTO: RevisionDTO): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/revision/registrar-revision`,
+  public actualizarRevision(revisionDTO: RevisionDTO): Observable<any> {
+    return this.http.put<any>(
+      `${environment.apiUrl}/revision/actualizar-revision/` + revisionDTO.codigoEstablecimiento,
       revisionDTO
     );
   }
