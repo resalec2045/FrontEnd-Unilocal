@@ -46,6 +46,32 @@ export class ClienteService {
     );
   }
 
+  public obtenerCliente(codigoCliente: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/clientes/obtener/${codigoCliente}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public actualizarCliente(clienteActualizadoDTO: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('nombre', clienteActualizadoDTO.nombre);
+    formData.append('nickName', clienteActualizadoDTO.nickName);
+    formData.append('email', clienteActualizadoDTO.email);
+    formData.append('ciudadResidencia', clienteActualizadoDTO.ciudadResidencia);
+    formData.append('foto', clienteActualizadoDTO.fotoActualizada);
+
+    return this.http.put<any>(
+      `${environment.apiUrl}/clientes/actualizar`,
+      formData,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
   public obtenerClientePorCodigo(codigoCliente: string): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/clientes/obtener/${codigoCliente}`,

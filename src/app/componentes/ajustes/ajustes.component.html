@@ -1,0 +1,70 @@
+<div class="app">
+    <main>
+        <navbar [type]="'header'">
+        </navbar>
+        <section class="section">
+            <div class="card_container container grid">
+                <h1 class="flex-center" style="color: var(--title-color);">
+                    Ajustes
+                </h1>
+                <div class="flex-center" style="color: var(--title-color);">
+                    <div class="card_information">
+                        <span>
+                            Nombre:
+                        </span>
+                        <div class="editable-field">
+                            <input type="text" [disabled]="!isFieldEnabledNombre" [(ngModel)]="clienteActualizadoDTO.nombre">
+                            <div class="circle" (click)="habilitarEdicionNombre()">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                        <span>
+                            Apodo:
+                        </span>
+                        <div class="editable-field">
+                            <input type="text" [disabled]="!isFieldEnabledApodo" [(ngModel)]="clienteActualizadoDTO.nickName" >
+                            <div class="circle" (click)="habilitarEdicionApodo()">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                        <span>
+                            Correo:
+                        </span>
+                        <div class="editable-field">
+                            <input type="email" [disabled]="!isFieldEnabledCorreo" [(ngModel)]="clienteActualizadoDTO.email">
+                            <div class="circle" (click)="habilitarEdicionCorreo()">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                        <span>
+                            Ciudad:
+                        </span>
+                        <div class="editable-field">
+                            <input type="text" [disabled]="!isFieldEnabledCiudad" [(ngModel)]="clienteActualizadoDTO.ciudadResidencia">
+                            <div class="circle" (click)="habilitarEdicionCiudad()">
+                                <img src="assets\svg\lapiz.svg" alt="Ícono">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card_image">
+                        <div class="image">
+                            <div class="profile-picture">
+                                <img class="image" src={{clienteActualizadoDTO.foto}} alt="Imagen de perfil">
+                            </div>
+                        </div>
+                        <div class="circle-camara">
+                            <img src="assets\svg\camara.svg" alt="Ícono">
+                            <input type="file" [(ngModel)]="clienteActualizadoDTO.fotoActualizada">
+                        </div>
+                    </div>
+                </div>
+                <div class="card_buttons flex-center">
+                    <button class="submit-button" (click)="guardarCambios()">Aceptar cambios</button>
+                    <button class="submit-button">Eliminar cuenta</button>
+                </div>
+
+            </div>
+        </section>
+        <app-footer></app-footer>
+    </main>
+</div>

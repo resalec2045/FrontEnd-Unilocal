@@ -1,4 +1,4 @@
-export class RegisterDTO {
+export class ClienteActualizadoDTO {
     constructor(
         public nombre: string = '',
         public nickName: string = '',
@@ -6,5 +6,6 @@ export class RegisterDTO {
         public contrasena: string = '',
         public foto: string = '',
         public ciudadResidencia: string = '',
+        public fotoActualizada: File = new File([], '')
     ) {}
 }

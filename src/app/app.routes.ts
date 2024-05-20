@@ -11,17 +11,23 @@ import { MisPublicacionesComponent } from './componentes/negocio/mis-publicacion
 import { ConfirmpasswordComponent } from './componentes/auth/confirmpassword/confirmpassword.component';
 import { NegociosModeradorComponent } from './componentes/negocio/negocios-moderador/negocios-moderador.component';
 import { RevisionesNegocioModeradorComponent } from './componentes/negocio/revisiones-negocio-moderador/revisiones-negocio-moderador.component';
+import { AjustesComponent } from './componentes/ajustes/ajustes.component';
 
 export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'inicio', component: InicioComponent },
   { path: 'detalle-negocio/:codigo', component: DetalleNegocioComponent },
-  { path: 'favoritos', component: FavoritosComponent},
-  { path: 'mis-publicaciones', component: MisPublicacionesComponent},
+  { path: 'favoritos', component: FavoritosComponent },
+  { path: 'mis-publicaciones', component: MisPublicacionesComponent },
   { path: 'cambiar-contrasena/:email', component: ConfirmpasswordComponent },
+  { path: 'ajustes', component: AjustesComponent },
+
   { path: 'busqueda/:texto', component: BusquedaComponent },
   { path: 'crear-negocio', component: CrearNegocioComponent },
   { path: 'negocios-moderador', component: NegociosModeradorComponent },
-  { path: 'revisiones-negocio-moderador/:codigo', component: RevisionesNegocioModeradorComponent },
+  {
+    path: 'revisiones-negocio-moderador/:codigo',
+    component: RevisionesNegocioModeradorComponent,
+  },
   { path: '**', pathMatch: 'full', redirectTo: 'auth' },
 ];

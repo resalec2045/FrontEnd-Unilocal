@@ -61,4 +61,8 @@ export class NavBarComponent implements AfterViewInit {
   navigateToLugaresPorRevisar() {
     this.router.navigate(['/negocios-moderador']);
   }
+
+  navigateToAjustes() {
+    this.router.navigate(['/ajustes']);
+  }
 }
