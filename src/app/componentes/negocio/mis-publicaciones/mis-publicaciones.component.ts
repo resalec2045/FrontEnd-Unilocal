@@ -46,4 +46,8 @@ export class MisPublicacionesComponent {
       },
     });
   }
+
+  public agregarPublicacion = () => {
+    this.router.navigate(['/crear-negocio']);
+  };
 }

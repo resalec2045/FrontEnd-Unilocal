@@ -22,8 +22,8 @@ export const routes: Routes = [
   { path: 'mis-publicaciones', component: MisPublicacionesComponent },
   { path: 'cambiar-contrasena/:email', component: ConfirmpasswordComponent },
   { path: 'ajustes', component: AjustesComponent },
-
   { path: 'editar-negocio/:codigo', component: EditarNegocioComponent },
+
   { path: 'crear-negocio', component: CrearNegocioComponent },
   { path: 'negocios-moderador', component: NegociosModeradorComponent },
   { path: 'busqueda/:texto', component: BusquedaComponent },

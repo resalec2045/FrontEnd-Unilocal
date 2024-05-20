@@ -76,7 +76,7 @@ export class NegociosService {
 
   public crearEstablecimiento(negocioNuevo: RegistroNegocioDTO) {
     return this.http.post<any>(
-      `${environment.apiUrl}/establecimiento/crear-establecimiento`,
+      `${environment.apiUrl}/establecimiento/registrar-establecimiento`,
       negocioNuevo,
       {
         headers: this.tokenService.getRequestHeaders(),

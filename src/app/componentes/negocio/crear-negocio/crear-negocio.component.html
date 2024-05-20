@@ -1,1 +1,197 @@
-<p>crear-negocio works!</p>
+<div class="app">
+  <main>
+    <navbar [type]="'header'"></navbar>
+    <section class="section" id="product">
+      <div class="product_container container grid">
+        <div class="product_information grid">
+          <div class="product_information-img flex-center">
+            <div class="information__img-box flex-center">
+              <div
+                id="carouselExampleAutoplaying"
+                class="carousel slide"
+                data-bs-ride="carousel"
+              >
+                <div
+                  class="ecommerce-gallery"
+                  data-mdb-ecommerce-gallery-init
+                  data-mdb-zoom-effect="true"
+                  data-mdb-auto-height="true"
+                >
+                  <div class="row py-3 shadow-5">
+                    <div class="col-12 mb-1">
+                      <div class="lightbox" data-mdb-lightbox-init>
+                        <img
+                          src="{{ establecimientoDTO!.imagenes[0] }}"
+                          data-mdb-img="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15a.webp"
+                          alt="Sin imagenes!!"
+                          class="w-100"
+                        />
+                      </div>
+                    </div>
+                    @for (imagen of establecimientoDTO?.imagenes; track $index)
+                    {
+                    <div class="col-3 mt-1">
+                      <i class="bx bx-x" (click)="eliminarImagen($index)"></i>
+                      <img
+                        src="{{ imagen }}"
+                        data-mdb-img="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15a.webp"
+                        alt="Gallery image 4"
+                        class="w-100"
+                      />
+                    </div>
+                    }
+                  </div>
+                  <input
+                    type="file"
+                    (change)="onFileSelected($event)"
+                    style="display: none"
+                    #fileInput
+                  />
+                  <button
+                    class="submit-button"
+                    type="button"
+                    (click)="fileInput.click()"
+                  >
+                    Agregar Imagen
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product_information-description">
+            <form
+              class="form grid"
+              #f="ngForm"
+              (ngSubmit)="crearEstablecimiento()"
+            >
+              <div class="group-input">
+                <input
+                  type="text"
+                  name="nombre"
+                  placeholder="Nombre del establecimiento"
+                  class="input"
+                  [(ngModel)]="establecimientoDTO!.nombre"
+                  required
+                />
+              </div>
+              <div class="group-input">
+                <textarea
+                  name="descripcion"
+                  placeholder="Descripción"
+                  class="input"
+                  [(ngModel)]="establecimientoDTO!.descripcion"
+                  required
+                ></textarea>
+              </div>
+              <div class="group-input">
+                <p>Horarios:</p>
+                <div
+                  *ngFor="
+                    let horario of establecimientoDTO!.horarios;
+                    let i = index
+                  "
+                >
+                  <select
+                    name="dia"
+                    class="input"
+                    [(ngModel)]="horario.dia"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Selecciona un día
+                    </option>
+                    <option *ngFor="let dia of diasSemana" [value]="dia">
+                      {{ dia }}
+                    </option>
+                  </select>
+                  <div class="group-input">
+                    <input
+                      type="time"
+                      name="horaApertura"
+                      class="input"
+                      [(ngModel)]="horario.horaApertura"
+                      required
+                      step="3600"
+                      value="08:00"
+                    />
+                  </div>
+                  <div class="group-input">
+                    <input
+                      type="time"
+                      name="horaCierre"
+                      class="input"
+                      [(ngModel)]="horario.horaCierre"
+                      required
+                      step="3600"
+                      value="18:00"
+                    />
+                  </div>
+
+                  <div class="">
+                    <button
+                      class="submit-button"
+                      type="button"
+                      (click)="eliminarHorario(i)"
+                    >
+                      Eliminar
+                    </button>
+                    <button
+                      class="submit-button"
+                      type="button"
+                      (click)="agregarHorario()"
+                    >
+                      Agregar Horario
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="group-input">
+                <div class="group-input">
+                  <select
+                    name="categoria"
+                    class="input"
+                    [(ngModel)]="establecimientoDTO!.categoria"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Selecciona una categoría
+                    </option>
+                    <option value="RESTAURANTE">Restaurante</option>
+                    <option value="BAR">Bar</option>
+                    <option value="CAFETERIA">Cafetería</option>
+                    <option value="DISCOTECA">Discoteca</option>
+                    <option value="HELADERIA">Heladería</option>
+                    <option value="PANADERIA">Panadería</option>
+                    <option value="PASTELERIA">Pastelería</option>
+                    <option value="OTRO">Otro</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="group-input"
+                *ngFor="
+                  let telefono of establecimientoDTO!.telefonos;
+                  let i = index
+                "
+              >
+                <input
+                  type="text"
+                  name="telefono{{ i }}"
+                  placeholder="Teléfono {{ i + 1 }}"
+                  class="input"
+                  value="{{ telefono }}"
+                  required
+                />
+              </div>
+              <button class="submit-button" type="submit">Crear</button>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div id="mapa"></div>
+      </div>
+    </section>
+
+    <!-- <app-footer></app-footer> -->
+  </main>
+</div>

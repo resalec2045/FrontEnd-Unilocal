@@ -4,17 +4,21 @@
     <section class="section" id="product">
       <div class="product_container container grid">
         <ul class="nav justify-content-center pb-3 mb-3">
-
           <h1 class="mb-3">Mis publicaciones</h1>
 
-          <div >
+          <div>
             <app-carta-negocio-revision
               *ngFor="let establecimiento of publicaciones; let i = index"
               [establecimiento]="establecimiento"
             ></app-carta-negocio-revision>
           </div>
-  
         </ul>
+      </div>
+      <div class="addProduct">
+        <i
+          class="bx bxs-folder-plus addProduct__icon"
+          (click)="agregarPublicacion()"
+        ></i>
       </div>
     </section>
   </main>
