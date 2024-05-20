@@ -13,7 +13,7 @@ export class RevisionesServices {
 
   public listarRevisionesPorCodigo(codigoPublicacion: string): Observable<any> {
     return this.http.get<any>(
-      `${environment.apiUrl}/revision/listar-revisiones`,
+      `${environment.apiUrl}/revision/listar-revisiones-codigo-establecimiento/` + codigoPublicacion,
     );
   }
 
