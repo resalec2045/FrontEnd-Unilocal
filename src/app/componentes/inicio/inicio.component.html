@@ -152,7 +152,7 @@
     <h1>Mapa</h1>
     <hr />
     <div id="mapa"></div>
-    <form role="search" >
+    <form role="search">
       <div class="input-group">
         <input
           #textoBusqueda
@@ -161,14 +161,13 @@
           placeholder="Buscar..."
           aria-label="Search"
         />
-        <button type="button" class="btn btn-primary" (click)="buscar(textoBusqueda.value)">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="buscar(textoBusqueda.value)"
+        >
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-        <select class="btn btn-primary search_button" id="">
-          <option value="coso">coso</option>
-          <option value="coso2">coso2</option>
-          <option value="coso3">coso3</option>
-        </select>
       </div>
     </form>
     @for (negocio of negocios; track $index) {

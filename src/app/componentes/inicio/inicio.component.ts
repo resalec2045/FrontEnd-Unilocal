@@ -57,12 +57,14 @@ export class InicioComponent implements OnInit {
       next: (response) => {
         this.negocios = response;
         this.todosNegocios = response;
+        if (this.mapaService.crearMapa()) {
+          this.mapaService.pintarMarcadores(response);
+        }
       },
       error: (error) => {
         console.log(error);
       },
     });
-    this.mapaService.crearMapa();
     if (this.tokenService.isLogged()) {
       this.listarFavoritos();
     }
@@ -71,15 +73,19 @@ export class InicioComponent implements OnInit {
   public buscar(valor: string): void {
     this.negocios = [];
     this.negociosFiltrados = [];
-    this.negociosFiltrados = this.todosNegocios.filter((negocio: EstablecimientoDTO) => {
-      const nombreLowerCase = negocio.nombre.toLowerCase();
-      const descripcionLowerCase = negocio.descripcion.toLowerCase();
-      return nombreLowerCase.includes(valor.toLowerCase()) || descripcionLowerCase.includes(valor.toLowerCase());
-    });
+    this.negociosFiltrados = this.todosNegocios.filter(
+      (negocio: EstablecimientoDTO) => {
+        const nombreLowerCase = negocio.nombre.toLowerCase();
+        const descripcionLowerCase = negocio.descripcion.toLowerCase();
+        return (
+          nombreLowerCase.includes(valor.toLowerCase()) ||
+          descripcionLowerCase.includes(valor.toLowerCase())
+        );
+      }
+    );
     console.log(this.negociosFiltrados);
     this.negocios = this.negociosFiltrados;
   }
-  
 
   public obtenerEstablecimientoAleatorio() {
     this.negociosService.obtenerEstablecimientoAleatorio().subscribe({
@@ -122,5 +128,4 @@ export class InicioComponent implements OnInit {
   public generarRango(numero: number): number[] {
     return Array.from({ length: numero }, (_, i) => i + 1);
   }
-
 }
