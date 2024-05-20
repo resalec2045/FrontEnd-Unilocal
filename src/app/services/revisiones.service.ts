@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../env/environment';
 import { ItemActualizarRevisionDTO } from '../dto/ItemActualizarRevisionDTO';
+import { RevisionDTO } from '../dto/RevisionDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -27,4 +28,15 @@ export class RevisionesServices {
       itemActualizarRevisionDTO
     );
   }
+
+  public registrarRevision(
+    registrarRevision: RevisionDTO
+  ): Observable<any> {
+    console.log(registrarRevision);
+    return this.http.post<any>(
+      `${environment.apiUrl}/revision/registrar-revision`,
+      registrarRevision
+    );
+  }
+  
 }

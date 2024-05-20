@@ -4,7 +4,7 @@ import { FooterComponent } from '../../generales/footer/footer/footer.component'
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from '../../generales/navbar/navbar.component';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { NegociosService } from '../../../services/negocios.service';
 import { ClienteService } from '../../../services/cliente.service';
 import { ComentariosService } from '../../../services/comentarios.service';
@@ -13,6 +13,9 @@ import { TokenService } from '../../../services/token.service';
 import { MapaService } from '../../../services/mapa.service';
 import { ActualizarEstablecimientoDTO } from '../../../dto/ActualizarEstablecimientoDTO';
 import { RegistroNegocioDTO } from '../../../dto/RegistroNegocioDTO';
+import { RevisionesServices } from '../../../services/revisiones.service';
+import { RevisionDTO } from '../../../dto/RevisionDTO';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-negocio',
@@ -47,7 +50,9 @@ export class CrearNegocioComponent {
     private comentariosService: ComentariosService,
     private imagenesService: ImagenesService,
     private tokenService: TokenService,
-    private mapaService: MapaService
+    private mapaService: MapaService,
+    private revisionesService: RevisionesServices,
+    private router: Router
   ) {
     this.establecimientoDTO = new RegistroNegocioDTO();
     this.establecimientoDTO.telefonos.push('');
@@ -78,14 +83,35 @@ export class CrearNegocioComponent {
       .crearEstablecimiento(this.establecimientoDTO!)
       .subscribe({
         next: (response) => {
-          console.log(response);
-          // TODO: CAMBIAR LO QUE RETORNA EL BACK POR EL ID DEL ESTABLECIMIETNTO
-          // TODO: CREAR UNA REVISION Y ASIGNAR EL ANTERIOR ID
+          this.crearRevision(response.respuesta);
         },
         error: (error) => {
           console.log(error);
         },
       });
+  }
+
+  public crearRevision(codigoEstablecimiento: string) {
+    this.revisionesService.registrarRevision(new RevisionDTO(
+      codigoEstablecimiento,
+      "REVISION DE ESTABLECIMIENTO",
+      "PENDIENTE",
+      new Date().toISOString(),
+      // TODO: Si queda tiempo realizar peticion que traiga el codigo del moderador o cambiar en el back
+      "66493ae28ede3919af6b84df"
+    )).subscribe({
+      next: (response) => {
+        this.router.navigate(['/mis-publicaciones']);
+        Swal.fire({
+          icon: 'success',
+          title: 'Establecimiento creado',
+          text: 'El establecimiento ha sido creado exitosamente',
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   agregarHorario() {
