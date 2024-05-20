@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { NavBarComponent } from '../../generales/navbar/navbar.component';
 import { FooterComponent } from '../../generales/footer/footer/footer.component';
-import { CartaNegocioComponent } from '../../generales/carta-negocio/carta-negocio.component';
 import { NgFor, NgIf } from '@angular/common';
 import { NegociosService } from '../../../services/negocios.service';
 import { TokenService } from '../../../services/token.service';
 import { RevisionEstablecimientoDTO } from '../../../dto/RevisionEstablecimientoDTO';
 import { CartaNegocioRevisionComponent } from '../../generales/carta-negocio-revision/carta-negocio-revision.component';
-
+import { Router, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-mis-publicaciones',
   standalone: true,
@@ -22,30 +21,29 @@ import { CartaNegocioRevisionComponent } from '../../generales/carta-negocio-rev
   styleUrl: './mis-publicaciones.component.css',
 })
 export class MisPublicacionesComponent {
-
   publicaciones: RevisionEstablecimientoDTO[] | undefined;
 
   constructor(
     private negociosService: NegociosService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) {
     this.publicaciones = [];
   }
 
   public ngOnInit() {
-    this.obtenerMisPublicaciones()
+    this.obtenerMisPublicaciones();
   }
-  
+
   public obtenerMisPublicaciones() {
-    const {id} = this.tokenService.decodePayload();
+    const { id } = this.tokenService.decodePayload();
     this.negociosService.listarEstablecimientosRevisionesCliente(id).subscribe({
       next: (response) => {
         this.publicaciones = response;
       },
       error: (error) => {
         console.log(error);
-      }, 
+      },
     });
   }
-
 }

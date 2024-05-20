@@ -5,19 +5,22 @@ import { FormsModule } from '@angular/forms';
 import { TokenService } from '../../services/token.service';
 import { ClienteService } from '../../services/cliente.service';
 import { ImagenesService } from '../../services/imagenes.service';
-import { ClienteActualizadoDTO } from '../../dto/clienteActualizadoDTO';
+import { ClienteActualizadoDTO } from '../../dto/ClienteActualizadoDTO';
 
 @Component({
   selector: 'app-ajustes',
   standalone: true,
-  imports: [ NavBarComponent, FooterComponent, FormsModule],
+  imports: [NavBarComponent, FooterComponent, FormsModule],
   templateUrl: './ajustes.component.html',
-  styleUrl: './ajustes.component.css'
+  styleUrl: './ajustes.component.css',
 })
 export class AjustesComponent {
-
   clienteActualizadoDTO: ClienteActualizadoDTO;
-  constructor(private tokenService: TokenService,private clienteService: ClienteService,private imagenesService: ImagenesService) {
+  constructor(
+    private tokenService: TokenService,
+    private clienteService: ClienteService,
+    private imagenesService: ImagenesService
+  ) {
     this.clienteActualizadoDTO = new ClienteActualizadoDTO();
   }
 
@@ -26,7 +29,6 @@ export class AjustesComponent {
   }
 
   public guardarCambios() {
-
     this.insertarImagen();
 
     // this.clienteService.actualizarCliente(this.clienteActualizadoDTO).subscribe(
@@ -39,38 +41,34 @@ export class AjustesComponent {
     //     }
     //   }
     // );
-
   }
 
   public insertarImagen() {
-    this.imagenesService.subirImagen(this.clienteActualizadoDTO.fotoActualizada).subscribe(
-      {
+    this.imagenesService
+      .subirImagen(this.clienteActualizadoDTO.fotoActualizada)
+      .subscribe({
         next: (data) => {
           console.log(data);
         },
         error: (error) => {
           console.log(error);
-        }
-      }
-    );
+        },
+      });
   }
 
   public obtenerCliente() {
     const { id } = this.tokenService.decodePayload();
-    this.clienteService.obtenerCliente(id).subscribe(
-      {
-        next: (data) => {
-          this.clienteActualizadoDTO = data.respuesta;
-          console.log(this.clienteActualizadoDTO);
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      }
-    
-    );
+    this.clienteService.obtenerCliente(id).subscribe({
+      next: (data) => {
+        this.clienteActualizadoDTO = data.respuesta;
+        console.log(this.clienteActualizadoDTO);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
-  
+
   isFieldEnabledNombre: boolean = false;
   isFieldEnabledApodo: boolean = false;
   isFieldEnabledCorreo: boolean = false;
@@ -91,6 +89,4 @@ export class AjustesComponent {
   habilitarEdicionCiudad() {
     this.isFieldEnabledCiudad = !this.isFieldEnabledCiudad;
   }
-
-
 }

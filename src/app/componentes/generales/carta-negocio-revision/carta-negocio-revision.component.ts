@@ -23,15 +23,12 @@ export class CartaNegocioRevisionComponent {
     private negociosService: NegociosService,
     private tokenService: TokenService,
     private router: Router
-  ) {
-  }
+  ) {}
 
   public navigateToDetalleNegocio = () => {
-    this.router.navigate([
-      `detalle-negocio/${this.establecimiento?._id}`,
-    ]);
+    this.router.navigate([`detalle-negocio/${this.establecimiento?._id}`]);
   };
-  
+
   public eliminarPublicacion = (codigoEstablecimiento: string) => {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -43,19 +40,25 @@ export class CartaNegocioRevisionComponent {
       confirmButtonText: 'Eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.negociosService.eliminarEstablecimiento(codigoEstablecimiento).subscribe({
-          next: (response) => {
-            Swal.fire('Eliminado', 'La publicación ha sido eliminada', 'success');
-          },
-          error: (error) => {
-            Swal.fire('Error', 'No se pudo eliminar la publicación', 'error');
-          },
-        });
+        this.negociosService
+          .eliminarEstablecimiento(codigoEstablecimiento)
+          .subscribe({
+            next: (response) => {
+              Swal.fire(
+                'Eliminado',
+                'La publicación ha sido eliminada',
+                'success'
+              );
+            },
+            error: (error) => {
+              Swal.fire('Error', 'No se pudo eliminar la publicación', 'error');
+            },
+          });
       }
     });
-  }
+  };
 
   public editarPublicacion = (codigoEstablecimiento: string) => {
-
-  }
+    this.router.navigate(['/editar-negocio', codigoEstablecimiento]);
+  };
 }

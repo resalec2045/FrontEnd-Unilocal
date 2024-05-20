@@ -162,7 +162,7 @@ export class DetalleNegocioComponent {
   public estaAbierto(): string {
     const fechaActual = new Date();
     const diaActual = Dias[fechaActual.getDay()];
-    const horaActual = fechaActual.getHours();
+    const horaActual = `${fechaActual.getHours()}:${fechaActual.getMinutes()}`;
 
     const horarioEstablecimiento = this.establecimientoDTO?.horarios.find(
       (horario) => horario.dia === diaActual
@@ -170,8 +170,8 @@ export class DetalleNegocioComponent {
 
     if (horarioEstablecimiento) {
       if (
-        horaActual >= Number(horarioEstablecimiento.horaApertura) &&
-        horaActual < Number(horarioEstablecimiento.horaCierre)
+        horaActual >= horarioEstablecimiento.horaApertura &&
+        horaActual < horarioEstablecimiento.horaCierre
       ) {
         return 'Abierto';
       } else {

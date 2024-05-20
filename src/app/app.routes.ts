@@ -12,6 +12,7 @@ import { ConfirmpasswordComponent } from './componentes/auth/confirmpassword/con
 import { NegociosModeradorComponent } from './componentes/negocio/negocios-moderador/negocios-moderador.component';
 import { RevisionesNegocioModeradorComponent } from './componentes/negocio/revisiones-negocio-moderador/revisiones-negocio-moderador.component';
 import { AjustesComponent } from './componentes/ajustes/ajustes.component';
+import { EditarNegocioComponent } from './componentes/negocio/editar-negocio/editar-negocio.component';
 
 export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
@@ -22,9 +23,10 @@ export const routes: Routes = [
   { path: 'cambiar-contrasena/:email', component: ConfirmpasswordComponent },
   { path: 'ajustes', component: AjustesComponent },
 
-  { path: 'busqueda/:texto', component: BusquedaComponent },
+  { path: 'editar-negocio/:codigo', component: EditarNegocioComponent },
   { path: 'crear-negocio', component: CrearNegocioComponent },
   { path: 'negocios-moderador', component: NegociosModeradorComponent },
+  { path: 'busqueda/:texto', component: BusquedaComponent },
   {
     path: 'revisiones-negocio-moderador/:codigo',
     component: RevisionesNegocioModeradorComponent,

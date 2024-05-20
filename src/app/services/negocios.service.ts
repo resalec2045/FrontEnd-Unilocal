@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../env/environment';
 import Swal from 'sweetalert2';
 import { TokenService } from './token.service';
+import { ActualizarEstablecimientoDTO } from '../dto/ActualizarEstablecimientoDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -83,7 +84,9 @@ export class NegociosService {
     );
   }
 
-  public listarEstablecimientosPorCategoria(codigoCategoria: string): Observable<any> {
+  public listarEstablecimientosPorCategoria(
+    codigoCategoria: string
+  ): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/establecimiento/listar-establecimientos-por-categoria/${codigoCategoria}`,
       {
@@ -110,9 +113,12 @@ export class NegociosService {
     );
   }
 
-  public actualizarEstablecimiento(establecimiento: EstablecimientoDTO): Observable<any> {
+  public actualizarEstablecimiento(
+    establecimiento: ActualizarEstablecimientoDTO,
+    codigo: string
+  ): Observable<any> {
     return this.http.put<any>(
-      `${environment.apiUrl}/establecimiento/actualizar-establecimiento`,
+      `${environment.apiUrl}/establecimiento/actualizar-establecimiento/${codigo}`,
       establecimiento,
       {
         headers: this.tokenService.getRequestHeaders(),
@@ -120,7 +126,9 @@ export class NegociosService {
     );
   }
 
-  public eliminarEstablecimiento(codigoEstablecimiento: string): Observable<any> {
+  public eliminarEstablecimiento(
+    codigoEstablecimiento: string
+  ): Observable<any> {
     return this.http.delete<any>(
       `${environment.apiUrl}/establecimiento/${codigoEstablecimiento}`,
       {
@@ -129,7 +137,9 @@ export class NegociosService {
     );
   }
 
-  public listarEstablecimientosRevisionesCliente(codigoCliente: string): Observable<any> {
+  public listarEstablecimientosRevisionesCliente(
+    codigoCliente: string
+  ): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/establecimiento/listar-establecimientos-por-revisiones-cliente/${codigoCliente}`,
       {
@@ -137,5 +147,4 @@ export class NegociosService {
       }
     );
   }
-
 }

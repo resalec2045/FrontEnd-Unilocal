@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemNegocioDTO } from '../dto/ItemNegocioDTO';
 import { environment } from '../env/environment';
+import { EstablecimientoDTO } from '../dto/EstablecimientoDTO';
 
 declare var mapboxgl: any;
 
@@ -70,6 +71,16 @@ export class MapaService {
           .setPopup(new mapboxgl.Popup().setHTML(negocio.nombre))
           .addTo(this.mapa);
       });
+    }
+  }
+
+  public pintarMarcador(negocio: EstablecimientoDTO) {
+    if (typeof mapboxgl === 'object') {
+      console.log('Longitud y latitud específica cuando se carga la vista');
+      new mapboxgl.Marker()
+        .setLngLat([negocio.ubicacion.longitud, negocio.ubicacion.latitud])
+        .setPopup(new mapboxgl.Popup().setHTML(negocio.nombre))
+        .addTo(this.mapa);
     }
   }
 }
