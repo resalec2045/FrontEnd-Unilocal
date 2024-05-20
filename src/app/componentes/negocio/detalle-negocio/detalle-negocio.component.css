@@ -116,8 +116,9 @@
 }
 
 /* Estilo de botones */
-.btn-rechazar, .btn-aprobar {
-  background-color: #9C27B0; /* Morado */
+.btn-rechazar,
+.btn-aprobar {
+  background-color: var(--title-color); /* Morado */
   color: #fff;
   padding: 15px 25px;
   border: none;
@@ -128,20 +129,19 @@
 }
 
 .btn-rechazar:hover {
-  background-color: #82248B; /* Morado más oscuro al pasar el cursor */
+  background-color: #82248b; /* Morado más oscuro al pasar el cursor */
 }
 
 .btn-aprobar:hover {
-  background-color: #7CB342; /* Verde al pasar el cursor */
+  background-color: #7cb342; /* Verde al pasar el cursor */
 }
 
 /* Iconos */
-.fa-times, .fa-check {
+.fa-times,
+.fa-check {
   margin-left: 10px;
   font-size: 18px;
 }
-
-
 
 /* Estilo de la tarjeta */
 .card {
@@ -153,7 +153,7 @@
 }
 
 .card-header {
-  background-color: #9C27B0; /* Morado */
+  background-color: #9c27b0; /* Morado */
   padding: 10px;
   border-radius: 10px 10px 0 0; /* Esquinas redondas superiores */
 }
@@ -198,7 +198,9 @@
   padding: 0 10px;
 }
 
-.row {margin: 0 -5px;}
+.row {
+  margin: 0 -5px;
+}
 
 /* Clear floats after the columns */
 .row:after {
