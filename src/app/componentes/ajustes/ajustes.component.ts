@@ -6,6 +6,8 @@ import { TokenService } from '../../services/token.service';
 import { ClienteService } from '../../services/cliente.service';
 import { ImagenesService } from '../../services/imagenes.service';
 import { ClienteActualizadoDTO } from '../../dto/ClienteActualizadoDTO';
+import { ItemActualizarClienteDTO } from '../../dto/ItemActualizarClienteDTO';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ajustes',
@@ -29,31 +31,43 @@ export class AjustesComponent {
   }
 
   public guardarCambios() {
-    this.insertarImagen();
-
-    // this.clienteService.actualizarCliente(this.clienteActualizadoDTO).subscribe(
-    //   {
-    //     next: (data) => {
-    //       console.log(data);
-    //     },
-    //     error: (error) => {
-    //       console.log(error);
-    //     }
-    //   }
-    // );
-  }
-
-  public insertarImagen() {
-    this.imagenesService
-      .subirImagen(this.clienteActualizadoDTO.fotoActualizada)
-      .subscribe({
+    this.clienteService.actualizarCliente(new ItemActualizarClienteDTO(
+      this.tokenService.decodePayload().id,
+      this.clienteActualizadoDTO!.nombre,
+      this.clienteActualizadoDTO!.foto,
+      this.clienteActualizadoDTO!.email,
+      this.clienteActualizadoDTO!.ciudadResidencia
+    )).subscribe(
+      {
         next: (data) => {
-          console.log(data);
+          Swal.fire({
+            icon: 'success',
+            title: data.respuesta,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         },
         error: (error) => {
           console.log(error);
-        },
-      });
+        }
+      }
+    );
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.subirImagen(file);
+  }
+
+  public subirImagen(imagen: File) {
+    this.imagenesService.subirImagen(imagen).subscribe({
+      next: (response) => {
+        this.clienteActualizadoDTO!.foto = response.respuesta.url;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   public obtenerCliente() {
@@ -66,6 +80,37 @@ export class AjustesComponent {
       error: (error) => {
         console.log(error);
       },
+    });
+  }
+
+  public eliminarCuenta() {
+    Swal.fire({
+      title: '¿Estás seguro de que quieres eliminar tu cuenta?',
+      text: 'No podrás recuperar tu cuenta si la eliminas',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const { id } = this.tokenService.decodePayload();
+        this.clienteService.eliminarCliente(id).subscribe({
+          next: (data) => {
+            Swal.fire({
+              icon: 'success',
+              title: data.respuesta,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.tokenService.logout();
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+      }
     });
   }
 

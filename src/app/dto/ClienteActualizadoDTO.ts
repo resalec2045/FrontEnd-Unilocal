@@ -6,6 +6,5 @@ export class ClienteActualizadoDTO {
         public contrasena: string = '',
         public foto: string = '',
         public ciudadResidencia: string = '',
-        public fotoActualizada: File = new File([], '')
     ) {}
 }

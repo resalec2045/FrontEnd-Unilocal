@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../env/environment';
 import { EmailDTO } from '../dto/EmailDTO';
+import { ClienteActualizadoDTO } from '../dto/ClienteActualizadoDTO';
+import { ItemActualizarClienteDTO } from '../dto/ItemActualizarClienteDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -55,17 +57,10 @@ export class ClienteService {
     );
   }
 
-  public actualizarCliente(clienteActualizadoDTO: any): Observable<any> {
-    const formData = new FormData();
-    formData.append('nombre', clienteActualizadoDTO.nombre);
-    formData.append('nickName', clienteActualizadoDTO.nickName);
-    formData.append('email', clienteActualizadoDTO.email);
-    formData.append('ciudadResidencia', clienteActualizadoDTO.ciudadResidencia);
-    formData.append('foto', clienteActualizadoDTO.fotoActualizada);
-
+  public actualizarCliente(clienteActualizadoDTO: ItemActualizarClienteDTO): Observable<any> {
     return this.http.put<any>(
-      `${environment.apiUrl}/clientes/actualizar`,
-      formData,
+      `${environment.apiUrl}/clientes/editar-perfil`,
+      clienteActualizadoDTO,
       {
         headers: this.tokenService.getRequestHeaders(),
       }
@@ -75,6 +70,15 @@ export class ClienteService {
   public obtenerClientePorCodigo(codigoCliente: string): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/clientes/obtener/${codigoCliente}`,
+      {
+        headers: this.tokenService.getRequestHeaders(),
+      }
+    );
+  }
+
+  public eliminarCliente(codigoCliente: string): Observable<any> {
+    return this.http.delete<any>(
+      `${environment.apiUrl}/clientes/eliminar/${codigoCliente}`,
       {
         headers: this.tokenService.getRequestHeaders(),
       }
