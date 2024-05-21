@@ -18,18 +18,39 @@ export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'inicio', component: InicioComponent },
   { path: 'detalle-negocio/:codigo', component: DetalleNegocioComponent },
-  { path: 'favoritos', component: FavoritosComponent },
-  { path: 'mis-publicaciones', component: MisPublicacionesComponent },
+  {
+    path: 'favoritos',
+    component: FavoritosComponent,
+    canActivate: [RolesGuard],
+  },
+  {
+    path: 'mis-publicaciones',
+    component: MisPublicacionesComponent,
+    canActivate: [RolesGuard],
+  },
   { path: 'cambiar-contrasena/:email', component: ConfirmpasswordComponent },
-  { path: 'ajustes', component: AjustesComponent },
-  { path: 'editar-negocio/:codigo', component: EditarNegocioComponent },
+  { path: 'ajustes', component: AjustesComponent, canActivate: [RolesGuard] },
+  {
+    path: 'editar-negocio/:codigo',
+    component: EditarNegocioComponent,
+    canActivate: [RolesGuard],
+  },
 
-  { path: 'crear-negocio', component: CrearNegocioComponent },
-  { path: 'negocios-moderador', component: NegociosModeradorComponent },
+  {
+    path: 'crear-negocio',
+    component: CrearNegocioComponent,
+    canActivate: [RolesGuard],
+  },
+  {
+    path: 'negocios-moderador',
+    component: NegociosModeradorComponent,
+    canActivate: [RolesGuard],
+  },
   { path: 'busqueda/:texto', component: BusquedaComponent },
   {
     path: 'revisiones-negocio-moderador/:codigo',
     component: RevisionesNegocioModeradorComponent,
+    canActivate: [RolesGuard],
   },
   { path: '**', pathMatch: 'full', redirectTo: 'auth' },
 ];

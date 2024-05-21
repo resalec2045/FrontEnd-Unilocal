@@ -6,3 +6,7 @@
     black 50%
   );
 }
+
+.heart {
+  color: var(--title-color);
+}

@@ -35,8 +35,8 @@
             @for (establecimiento of mejoresEstablecimientos; track $index) {
             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
               <img
-                src="https://media.istockphoto.com/id/1455589142/es/foto/interior-del-antiguo-palacio-en-ruinas-con-columnas-y-c%C3%BApula.jpg?s=2048x2048&w=is&k=20&c=eE_kMqz2Lx3JnLXEKUFyTMWh7cZ1CUyVSfVhvXNAsZI="
-                class="d-block w-100"
+                src="{{ establecimiento.imagenes[0] }}"
+                class="d-block w-100 imagen"
                 alt="..."
               />
               <div class="carousel-caption d-none d-md-block">
