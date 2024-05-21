@@ -6,3 +6,13 @@
     black 50%
   );
 }
+
+.active {
+  background-image: linear-gradient(
+    to right,
+    var(--title-color),
+    var(--title-color) 50%,
+    var(--title-color) 50%
+  );
+  font-weight: bold;
+}

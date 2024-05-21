@@ -1,26 +1,25 @@
-<div class="card">
-    <div class="card-body">
-      <div class="card-img">
-        <img
-          src="{{ establecimientoDTO!.imagenes[0] }}"
-          alt="{{ establecimientoDTO?.nombre }}"
-        />
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="card-img">
+      <img
+        src="{{ establecimientoDTO!.imagenes[0] }}"
+        alt="{{ establecimientoDTO?.nombre }}"
+      />
+    </div>
+    <div class="card-text">
+      <div class="card-title">
+        <h2 class="text-center">{{ establecimientoDTO?.nombre }}</h2>
       </div>
-      <div class="card-text">
-        <div class="card-title">
-          <h2 class="text-center">{{ establecimientoDTO?.nombre }}</h2>
-        </div>
-        <div class="card-content">
-          <p>
-            {{ establecimientoDTO?.descripcion }}
-          </p>
-        </div>
-        <div class="card-text_button">
-          <button class="submit-button" (click)="navigateToDetalleNegocio()">
-            Revisar
-          </button>
-        </div>
+      <div class="card-content">
+        <p>
+          {{ establecimientoDTO?.descripcion }}
+        </p>
+      </div>
+      <div class="card-text_button">
+        <button class="submit-button" (click)="navigateToDetalleNegocio()">
+          Revisar
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

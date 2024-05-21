@@ -13,6 +13,11 @@
             ></app-carta-negocio-revision>
           </div>
         </ul>
+        @if (publicaciones!.length === 0) {
+        <div class="alert alert-warning flex-center" role="alert">
+          No tienes publicaciones, abajo a la derecha puedes agregar una.
+        </div>
+        }
       </div>
       <div class="addProduct">
         <i

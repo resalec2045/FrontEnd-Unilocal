@@ -4,23 +4,49 @@
     <div class="nav__menu">
       <ul class="nav__list">
         <li class="nav__item">
-          <a class="nav__link" (click)="navigateToMyPublications()" routerLink="/mis-publicaciones"> Publicaciones </a>
-        </li>
-        <li class="nav__item">
           <a class="nav__link" (click)="navigateToHome()" routerLink="/inicio">
             Home
           </a>
         </li>
+        @if (isLogged) {
         <li class="nav__item">
-          <a class="nav__link" (click)="navigateToAjustes()" routerLink="/ajustes"> Ajustes </a>
+          <a
+            class="nav__link"
+            (click)="navigateToAjustes()"
+            routerLink="/ajustes"
+          >
+            Ajustes
+          </a>
         </li>
         <li class="nav__item">
-          <a class="nav__link" (click)="navigateToFavorites()" routerLink="/favoritos"> Favoritos </a>
+          <a
+            class="nav__link"
+            (click)="navigateToFavorites()"
+            routerLink="/favoritos"
+          >
+            Favoritos
+          </a>
         </li>
-
         <li class="nav__item">
-          <a class="nav__link" (click)="navigateToLugaresPorRevisar()" routerLink="/negocios-moderador"> Lugares </a>
+          <a
+            class="nav__link"
+            (click)="navigateToMyPublications()"
+            routerLink="/mis-publicaciones"
+          >
+            Mis publicaciones
+          </a>
         </li>
+        } @if (isAdmin) {
+        <li class="nav__item">
+          <a
+            class="nav__link"
+            (click)="navigateToLugaresPorRevisar()"
+            routerLink="/negocios-moderador"
+          >
+            Revisar lugares
+          </a>
+        </li>
+        }
       </ul>
     </div>
     <div class="search">

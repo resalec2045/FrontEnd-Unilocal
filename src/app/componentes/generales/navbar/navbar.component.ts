@@ -17,6 +17,7 @@ import { TokenService } from '../../../services/token.service';
 })
 export class NavBarComponent implements AfterViewInit {
   navbarOriginalPosition: number = 0;
+  isAdmin = false;
   isFixed = false;
   isLogged = false;
 
@@ -28,6 +29,7 @@ export class NavBarComponent implements AfterViewInit {
     private router: Router
   ) {
     this.isLogged = this.tokenService.isLogged();
+    this.isAdmin = this.tokenService.getRole() === 'MODERADOR';
   }
 
   ngAfterViewInit() {

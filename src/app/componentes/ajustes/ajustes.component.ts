@@ -31,14 +31,18 @@ export class AjustesComponent {
   }
 
   public guardarCambios() {
-    this.clienteService.actualizarCliente(new ItemActualizarClienteDTO(
-      this.tokenService.decodePayload().id,
-      this.clienteActualizadoDTO!.nombre,
-      this.clienteActualizadoDTO!.foto,
-      this.clienteActualizadoDTO!.email,
-      this.clienteActualizadoDTO!.ciudadResidencia
-    )).subscribe(
-      {
+    this.clienteService
+      .actualizarCliente(
+        new ItemActualizarClienteDTO(
+          this.tokenService.decodePayload().id,
+          this.clienteActualizadoDTO!.nombre,
+          this.clienteActualizadoDTO!.nickName,
+          this.clienteActualizadoDTO!.foto,
+          this.clienteActualizadoDTO!.email,
+          this.clienteActualizadoDTO!.ciudadResidencia
+        )
+      )
+      .subscribe({
         next: (data) => {
           Swal.fire({
             icon: 'success',
@@ -49,9 +53,8 @@ export class AjustesComponent {
         },
         error: (error) => {
           console.log(error);
-        }
-      }
-    );
+        },
+      });
   }
 
   onFileSelected(event: any) {
@@ -75,7 +78,6 @@ export class AjustesComponent {
     this.clienteService.obtenerCliente(id).subscribe({
       next: (data) => {
         this.clienteActualizadoDTO = data.respuesta;
-        console.log(this.clienteActualizadoDTO);
       },
       error: (error) => {
         console.log(error);

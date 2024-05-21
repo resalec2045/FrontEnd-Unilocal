@@ -14,7 +14,7 @@
                 [(ngModel)]="clienteActualizadoDTO.nombre"
               />
               <div class="circle" (click)="habilitarEdicionNombre()">
-                <img src="assets\svg\lapiz.svg" alt="Ícono" />
+                <i class="bx bxs-pencil icon-camara"></i>
               </div>
             </div>
             <span> Apodo: </span>
@@ -25,7 +25,7 @@
                 [(ngModel)]="clienteActualizadoDTO.nickName"
               />
               <div class="circle" (click)="habilitarEdicionApodo()">
-                <img src="assets\svg\lapiz.svg" alt="Ícono" />
+                <i class="bx bxs-pencil icon-camara"></i>
               </div>
             </div>
             <span> Correo: </span>
@@ -36,7 +36,7 @@
                 [(ngModel)]="clienteActualizadoDTO.email"
               />
               <div class="circle" (click)="habilitarEdicionCorreo()">
-                <img src="assets\svg\lapiz.svg" alt="Ícono" />
+                <i class="bx bxs-pencil icon-camara"></i>
               </div>
             </div>
             <span> Ciudad: </span>
@@ -47,7 +47,7 @@
                 [(ngModel)]="clienteActualizadoDTO.ciudadResidencia"
               />
               <div class="circle" (click)="habilitarEdicionCiudad()">
-                <img src="assets\svg\lapiz.svg" alt="Ícono" />
+                <i class="bx bxs-pencil icon-camara"></i>
               </div>
             </div>
           </div>
@@ -68,7 +68,11 @@
                     style="display: none"
                     #fileInput
                   />
-                  <i class="bx bxs-camera icon-camara" (click)="fileInput.click()"> </i>
+                  <i
+                    class="bx bxs-camera icon-camara"
+                    (click)="fileInput.click()"
+                  >
+                  </i>
                 </div>
               </div>
             </div>
@@ -78,10 +82,11 @@
           <button class="submit-button" (click)="guardarCambios()">
             Aceptar cambios
           </button>
-          <button class="submit-button" (click)="eliminarCuenta()">Eliminar cuenta</button>
+          <button class="submit-button" (click)="eliminarCuenta()">
+            Eliminar cuenta
+          </button>
         </div>
       </div>
     </section>
-    <app-footer></app-footer>
   </main>
 </div>

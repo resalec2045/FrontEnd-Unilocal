@@ -57,7 +57,9 @@ export class ClienteService {
     );
   }
 
-  public actualizarCliente(clienteActualizadoDTO: ItemActualizarClienteDTO): Observable<any> {
+  public actualizarCliente(
+    clienteActualizadoDTO: ItemActualizarClienteDTO
+  ): Observable<any> {
     return this.http.put<any>(
       `${environment.apiUrl}/clientes/editar-perfil`,
       clienteActualizadoDTO,

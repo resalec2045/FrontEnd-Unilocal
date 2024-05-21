@@ -22,9 +22,10 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './favoritos.component.css',
 })
 export class FavoritosComponent {
-  selectPage!: string;
   misFavoritos: EstablecimientoDTO[];
   favoritosComunidad: EstablecimientoDTO[];
+  loading: boolean = true;
+  selectPage!: string;
 
   constructor(
     private negociosService: NegociosService,
@@ -49,6 +50,7 @@ export class FavoritosComponent {
     this.negociosService.listarFavoritosCliente(id).subscribe({
       next: (response) => {
         this.misFavoritos = response;
+        this.loading = false;
       },
       error: (error) => {
         console.log(error);
@@ -60,6 +62,7 @@ export class FavoritosComponent {
     this.negociosService.listarFavoritosComunidad('1').subscribe({
       next: (response) => {
         this.favoritosComunidad = response;
+        this.loading = false;
       },
       error: (error) => {
         console.log(error);
@@ -73,7 +76,8 @@ export class FavoritosComponent {
 
   public esFavorito(codigo: string): boolean {
     return (
-      this.misFavoritos.filter((negocio) => negocio.codigo === codigo).length > 0
+      this.misFavoritos.filter((negocio) => negocio.codigo === codigo).length >
+      0
     );
   }
 }

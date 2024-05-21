@@ -1,66 +1,66 @@
-.card_container{
-    background-color: white;
-    width: 900px;
-    height: 600px;
-    border-radius: 40px;
-    padding: 35px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.card_container {
+  background-color: white;
+  width: 900px;
+  height: 600px;
+  border-radius: 40px;
+  padding: 35px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.card_information{
-    width: 400px;
-    justify-content: space-between;
-    margin-top: 20px;
-    
+.card_information {
+  width: 400px;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-.image{
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
+.image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
 }
 
 .editable-field {
-    position: relative; /* Añade posición relativa para que el círculo interno pueda posicionarse correctamente */
+  position: relative; /* Añade posición relativa para que el círculo interno pueda posicionarse correctamente */
 }
 
 .editable-field input {
-    background-color: transparent; /* Hace que el fondo del campo de entrada sea transparente */
-    border: none; /* Elimina el borde del campo de entrada */
-    width: 300px; /* Ajusta el ancho del campo de entrada */
-    font-size: inherit; /* Hereda el tamaño de fuente del elemento padre */
+  background-color: transparent; /* Hace que el fondo del campo de entrada sea transparente */
+  border: none; /* Elimina el borde del campo de entrada */
+  width: 300px; /* Ajusta el ancho del campo de entrada */
+  font-size: inherit; /* Hereda el tamaño de fuente del elemento padre */
 }
 
 .circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 310px; /* Ajusta el margen según necesites */
-    margin-top: -40px;
-    cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--title-color);
+  align-items: center;
+  margin-left: 310px; /* Ajusta el margen según necesites */
+  margin-top: -40px;
+  cursor: pointer;
 }
 .circle-camara {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--title-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--title-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 .icon-camara {
-    color: white;
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
+  color: white;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
 }
 .flex-rigth {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
