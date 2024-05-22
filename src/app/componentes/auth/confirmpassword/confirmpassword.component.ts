@@ -9,21 +9,20 @@ import { NavBarComponent } from '../../generales/navbar/navbar.component';
 import { RecuperacionContrasenaDTO } from '../../../dto/RecuperacionContrasenaDTO';
 
 @Component({
-    selector: 'app-confirmpassword',
-    standalone: true,
-    templateUrl: './confirmpassword.component.html',
-    imports: [RouterOutlet, FormsModule, CommonModule, NavBarComponent],
-    styleUrls: ['../auth.component.css'],
-    
+  selector: 'app-confirmpassword',
+  standalone: true,
+  templateUrl: './confirmpassword.component.html',
+  imports: [RouterOutlet, FormsModule, CommonModule, NavBarComponent],
+  styleUrls: ['../auth.component.css'],
 })
 export class ConfirmpasswordComponent {
   logo = '../../assets/svg/Logo.png';
   recuperacionContrasenaDTO: RecuperacionContrasenaDTO;
-  email: string
+  email: string;
 
   @Output() switchToLoginEvent = new EventEmitter<void>();
 
-  constructor( private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private authService: AuthService) {
     this.recuperacionContrasenaDTO = new RecuperacionContrasenaDTO();
     this.email = '';
     this.route.params.subscribe((params) => {
@@ -33,7 +32,7 @@ export class ConfirmpasswordComponent {
 
   validatePassword(contrasena: string, confirmarContrasena: string) {
     console.log(this.email);
-    this.recuperacionContrasenaDTO.email =  this.email
+    this.recuperacionContrasenaDTO.email = this.email;
     if (contrasena === confirmarContrasena && contrasena.length > 7) {
       this.recoverySubmit(contrasena);
     } else {
@@ -47,26 +46,28 @@ export class ConfirmpasswordComponent {
   }
 
   recoverySubmit(contrasena: string) {
-    this.recuperacionContrasenaDTO.contrasenaNueva =  contrasena
-    console.log(this.recuperacionContrasenaDTO)
-    this.authService.reestablecerContrasena(this.recuperacionContrasenaDTO).subscribe({
-      next: (response) => {
-        Swal.fire({
-          title: '¡Hecho!',
-          text: 'Contraseña actualizada con éxito. Inicia sesión nuevamente.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
-      },
-      error: (error) => {
-        Swal.fire({
-          title: '¡ERROR!',
-          text: 'Lo sentimos. Por favor intenta nuevamente, más tarde.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-      },
-    });
+    this.recuperacionContrasenaDTO.contrasenaNueva = contrasena;
+    console.log(this.recuperacionContrasenaDTO);
+    this.authService
+      .reestablecerContrasena(this.recuperacionContrasenaDTO)
+      .subscribe({
+        next: (response) => {
+          Swal.fire({
+            title: '¡Hecho!',
+            text: 'Contraseña actualizada con éxito. Ya puede cerrar esta ventana.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+        },
+        error: (error) => {
+          Swal.fire({
+            title: '¡ERROR!',
+            text: 'Lo sentimos. Por favor intenta nuevamente, más tarde.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+        },
+      });
   }
 
   switchToLogin() {

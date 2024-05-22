@@ -22,35 +22,44 @@ export const routes: Routes = [
     path: 'favoritos',
     component: FavoritosComponent,
     canActivate: [RolesGuard],
+    data: { expectedRole: ['MODERADOR', 'USUARIO'] },
   },
   {
     path: 'mis-publicaciones',
     component: MisPublicacionesComponent,
     canActivate: [RolesGuard],
+    data: { expectedRole: ['MODERADOR', 'USUARIO'] },
   },
   { path: 'cambiar-contrasena/:email', component: ConfirmpasswordComponent },
-  { path: 'ajustes', component: AjustesComponent, canActivate: [RolesGuard] },
+  {
+    path: 'ajustes',
+    component: AjustesComponent,
+    data: { expectedRole: ['MODERADOR', 'USUARIO'] },
+  },
   {
     path: 'editar-negocio/:codigo',
     component: EditarNegocioComponent,
     canActivate: [RolesGuard],
+    data: { expectedRole: ['MODERADOR', 'USUARIO'] },
   },
-
   {
     path: 'crear-negocio',
     component: CrearNegocioComponent,
     canActivate: [RolesGuard],
+    data: { expectedRole: ['MODERADOR', 'USUARIO'] },
   },
   {
     path: 'negocios-moderador',
     component: NegociosModeradorComponent,
     canActivate: [RolesGuard],
+    data: { expectedRole: ['MODERADOR'] },
   },
   { path: 'busqueda/:texto', component: BusquedaComponent },
   {
     path: 'revisiones-negocio-moderador/:codigo',
     component: RevisionesNegocioModeradorComponent,
     canActivate: [RolesGuard],
+    data: { expectedRole: ['MODERADOR'] },
   },
   { path: '**', pathMatch: 'full', redirectTo: 'auth' },
 ];
